@@ -1,6 +1,6 @@
 package Entities;
 
-import WorldMap.MapTile;
+import util.CombatReturn;
 import util.Dice;
 
 public class Creature extends Entity {
@@ -20,26 +20,45 @@ public class Creature extends Entity {
     }
     public Creature() {}
 
-    public void takeDamage(int damage, int damageBonus, MapTile currentMapTile) {
+    public CombatReturn takeHit(Creature creature) {
         // roll d20
         int roll = die.roll(20);
-        if(ac <= roll + damageBonus) {
-            hp -= damage;
-            if(roll == 20) {
+        if(ac <= roll + creature.getStat("damageBonus")) {
+            hp -= creature.getStat("damage");
+            boolean didCrit = (roll == 20);
+            if(didCrit) {
                 // crit
-                hp -= damage;
+                hp -= creature.getStat("damage");
                 System.out.println("A critical hit!");
             }
             if(hp <= 0) {
                 isDead = true;
             }
-        } else if(roll == 0) {
+
+            if(didCrit) {
+                return new CombatReturn(creature.getStat("damage"), name);
+            } else {
+                return new CombatReturn(creature.getStat("damage"), name);
+            }
+        } else if(roll != 0) {
+            return new CombatReturn(0, "opponent");
+        } else {
             System.out.println("A critical failure :(");
+            creature.changeStat("hp", -damage);
+            return new CombatReturn(damage, "opponent");
         }
-        setDescription();
     }
 
-
+    public void changeStat(String stat, int amt) {
+        switch (stat) {
+            case "damage":
+                damage += amt;
+            case "hp":
+                hp += amt;
+            default:
+                throw new Error("That stat is either non-existent or not modifiable.");
+        }
+    }
     public int getStat(String stat) {
         switch (stat) {
             case "damage":
@@ -54,7 +73,10 @@ public class Creature extends Entity {
                 throw new Error("Unknown Stat Type");
         }
     }
-
+    @Override
+    public void update() {
+        setDescription();
+    }
 
     private void setDescription() {
         description = "You see a " + name.toLowerCase() + ". It looks back at you.";

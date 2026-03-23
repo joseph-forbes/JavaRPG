@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import Entities.Creature;
 import Player.Player;
 import WorldMap.*;
-
+import util.CombatReturn;
 import Game.Engine;
 
 public class Hit implements Command {
@@ -56,11 +56,16 @@ public class Hit implements Command {
     }
     private void hit(Entity entity, Engine game) {
         if(entity instanceof Creature enemy) {
-            enemy.takeDamage(player.getStat("damage"), player.getStat("damageBonus"), game.getMap().getCurrentMapTile());
-            
-            System.out.println("You hit the " 
-            + entity.getName().toLowerCase() + " for " 
-            + player.getStat("damage") + " damage.");
+            CombatReturn outcome = enemy.takeHit(player);
+            if(outcome.getSubject().equals("opponent") && outcome.getDamage() > 0) {
+                // Player was subject
+                System.out.println("You took " + outcome.getDamage() + " damage.");
+            } else if(outcome.getSubject().equals("opponent")) {
+                System.out.println("You missed.");
+            } else {
+                System.out.println("The " + enemy.getName() + " took " + outcome.getDamage()
+                + " damage, and has " + enemy.getStat("hp") + " hp remaining.");
+            }
         } else {
             System.out.println("The " + entity.getName().toLowerCase() + " seems unimpressed by your pathetic flailing.");
         }

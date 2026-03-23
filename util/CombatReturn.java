@@ -1,12 +1,18 @@
 package util;
 
 public class CombatReturn {
-    String returnMsg;
-    public CombatReturn(String msg) {
-        returnMsg = msg;
+    int damage;
+    String subject;
+    public CombatReturn(int damage, String subject) {
+        this.damage = damage;
+        this.subject = subject;
     }
 
-    public String getMessage() {
-        return returnMsg;
+    public String getSubject() {
+        return subject;
+    }
+
+    public int getDamage() {
+        return damage;
     }
 }
