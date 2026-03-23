@@ -6,7 +6,7 @@ import Entities.Creature;
 import Player.Player;
 import WorldMap.*;
 
-import Game.Adventure;
+import Game.Engine;
 
 public class Hit implements Command {
     public String man = "Attack something with your equipped weapon. \n" 
@@ -18,7 +18,7 @@ public class Hit implements Command {
     MapTile currentTile;
     Player player;
 
-    public void execute(Adventure game, String[] args) {
+    public void execute(Engine game, String[] args) {
 
         worldMap = game.getMap();
         player = game.getPlayer();
@@ -54,7 +54,7 @@ public class Hit implements Command {
         }
 
     }
-    private void hit(Entity entity, Adventure game) {
+    private void hit(Entity entity, Engine game) {
         if(entity instanceof Creature enemy) {
             enemy.takeDamage(player.getStat("damage"), player.getStat("damageBonus"), game.getMap().getCurrentMapTile());
             

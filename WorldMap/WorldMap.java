@@ -1,13 +1,13 @@
 package WorldMap;
 import Entities.*;
-import Game.Adventure;
+import Game.Engine;
 import Player.Player;
 
 public class WorldMap {
     MapTile[][] worldMap = new MapTile[5][5];
     Player player;
 
-    public WorldMap(Adventure game) {
+    public WorldMap(Engine game) {
         // Initialize map
         player = game.getPlayer();
         for(int i=0;i<worldMap.length;i++) {

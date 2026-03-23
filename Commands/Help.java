@@ -8,7 +8,7 @@ import java.nio.file.*;
 
 public class Help implements Command {
     public String man = "Prints this list";
-    public void execute(Game.Adventure game, String[] args) {
+    public void execute(Game.Engine game, String[] args) {
         // The directory containing the .class files
         File dir = new File(System.getProperty("user.dir")); // Commands Directory 
 

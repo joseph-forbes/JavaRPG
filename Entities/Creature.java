@@ -31,7 +31,7 @@ public class Creature extends Entity {
                 System.out.println("A critical hit!");
             }
             if(hp <= 0) {
-                this.killEnemy(currentMapTile);
+                isDead = true;
             }
         } else if(roll == 0) {
             System.out.println("A critical failure :(");
@@ -55,14 +55,6 @@ public class Creature extends Entity {
         }
     }
 
-    void killEnemy(MapTile currentMapTile) {
-        for(Entity entity : currentMapTile.contents) {
-            if(entity == this) {
-                // This entity
-                currentMapTile.contents.remove(entity);
-            }
-        }
-    }
 
     private void setDescription() {
         description = "You see a " + name.toLowerCase() + ". It looks back at you.";

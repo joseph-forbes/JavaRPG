@@ -1,6 +1,8 @@
 package Entities;
 
 public class Entity {
+    public boolean isDead = false; // Garbage collection marker
+
     protected String description = "You see a generic thing.";
     protected String detailedDescription = "It's literally just a thing. There is no description beyond that, I'm not sure what you're asking for.";
     
@@ -15,4 +17,6 @@ public class Entity {
     public String getDetailedDescription() {
         return detailedDescription;
     }
+
+    public void update() {}
 }

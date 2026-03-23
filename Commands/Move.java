@@ -1,5 +1,5 @@
 package Commands;
-import Game.Adventure;
+import Game.Engine;
 import Player.Player;
 
 enum Direction {
@@ -10,7 +10,7 @@ public class Move implements Command {
     public String man = "Move the player. Takes in a direction (north, east, south, west).";
     Player player;
 
-    public void execute(Adventure game, String[] args) {
+    public void execute(Engine game, String[] args) {
         player = game.getPlayer();
 
          try {

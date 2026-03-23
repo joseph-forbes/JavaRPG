@@ -2,7 +2,7 @@ package Commands;
 import WorldMap.*;
 import Entities.Entity;
 
-import Game.Adventure;
+import Game.Engine;
 
 public class Look implements Command {
     public String man = "Look at an entity. Takes the name of the entity. Type \"look around\" to see everything around you.";
@@ -10,7 +10,7 @@ public class Look implements Command {
     WorldMap worldMap;
     String playerName;
 
-    public void execute(Adventure game, String[] args) {
+    public void execute(Engine game, String[] args) {
         worldMap = game.getMap();
         playerName = game.getPlayer().getName();
 
