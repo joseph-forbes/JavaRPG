@@ -7,9 +7,8 @@ enum Direction {
 }
 
 public class Move implements Command {
-    public String man = "Move the player. Takes in a direction (north, east, south, west).";
     public String getMan() {
-        return man;
+        return "Move the player. Takes in a direction (north, east, south, west).";
     }
     Player player;
 

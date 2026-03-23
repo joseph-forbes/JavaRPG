@@ -26,5 +26,7 @@ public class Entity {
         return detailedDescription;
     }
 
-    public void update() {}
+    public void update() {
+        setDescription();
+    }
 }

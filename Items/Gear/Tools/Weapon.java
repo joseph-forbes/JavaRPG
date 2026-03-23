@@ -3,9 +3,12 @@ package Items.Gear.Tools;
 import Items.Item;
 
 public class Weapon extends Item {
-    protected int damage;
-    public Weapon(String name, int damage) {
+    protected int damage, damageBonus;
+    public Weapon(String name, int damage, int damageBonus) {
         this.name = name;
         this.damage = damage;
+        this.damageBonus = damageBonus;
+
+        setDescription();
     }
 }

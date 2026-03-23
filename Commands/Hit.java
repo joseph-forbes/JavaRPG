@@ -9,11 +9,10 @@ import util.CombatReturn;
 import Game.Engine;
 
 public class Hit implements Command {
-    public String man = "Attack something with your equipped weapon. \n" 
+    public String getMan() {
+        return "Attack something with your equipped weapon. \n" 
                       + "Takes in an enemy (e.g. goblin, troll). \n"
                       + "If there is more than one, also takes an index (1,2,3, etc.) to clarify which enemy is being attacked.";
-    public String getMan() {
-        return man;
     }
     
     WorldMap worldMap;
@@ -25,7 +24,23 @@ public class Hit implements Command {
         worldMap = game.getMap();
         player = game.getPlayer();
 
-        String searchStr = args[0];
+        String searchStr = "";
+        if(args.length > 0) {
+            for(String word : args) {
+                try {
+                    Integer.parseInt(word);
+                    // is an integer
+                    break;
+                } catch (NumberFormatException e) {
+                    // not an integer; continue.
+                }
+                searchStr += word + " ";
+            }
+            searchStr = searchStr.substring(0, searchStr.length() - 1); // remove trailing whitespace
+        } else {
+            System.out.println("Please provide something to hit. For example, \"hit goblin\"");
+        }
+        
         currentTile = worldMap.getCurrentMapTile();
         ArrayList<Entity> potentialEnemies = new ArrayList<>();
 

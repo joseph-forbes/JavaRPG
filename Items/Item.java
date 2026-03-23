@@ -21,6 +21,7 @@ public class Item extends Entity {
     public Item() {}
     public Item(String name) {
         this.name = name;
+        setDescription();
     }
 
     public void use(Engine game) {
@@ -32,7 +33,7 @@ public class Item extends Entity {
 
     @Override
     protected void setDescription() {
-        description = "You see a" + (("aeiou".indexOf(name) != -1) ? "n" : "") + " lying on the ground.";
-        detailedDescription = "The " + name + " appears to be on the ground. It is small enough to fit in your pocket.";
+        description = "You see a" + (("aeiou".indexOf(name) != -1) ? "n" : "") + " " + name + " lying on the ground.";
+        detailedDescription = "The " + name + " is lying on the ground. It is small enough to fit in your pocket.";
     }
 }

@@ -5,9 +5,8 @@ import Entities.Entity;
 import Game.Engine;
 
 public class Look implements Command {
-    public String man = "Look at an entity. Takes the name of the entity. Type \"look around\" to see everything around you.";
     public String getMan() {
-        return man;
+        return "Look at an entity. Takes the name of the entity. Type \"look around\" to see everything around you.";
     }
     
     WorldMap worldMap;
@@ -18,7 +17,9 @@ public class Look implements Command {
         playerName = game.getPlayer().getName();
 
         MapTile currentMapTile = worldMap.getCurrentMapTile();
-        if(args[0].toLowerCase().equalsIgnoreCase("around")) {
+        if(args.length <= 0) {
+            System.out.println("Please provide something to look at. For example, \"look goblin\"");
+        } else if(args[0].toLowerCase().equalsIgnoreCase("around")) {
             // "look around"
             if(currentMapTile.contents.size() == 0) {
                 System.out.println("The world around you is eerily silent. You see nothing.");
@@ -28,15 +29,22 @@ public class Look implements Command {
             }
         } else {
             boolean didDisplay = false;
+
+            String searchQuery = "";
+            for(String word : args) {
+                searchQuery += word + " ";
+            }
+            searchQuery = searchQuery.substring(0, searchQuery.length() - 1); // remove trailing whitespace
+            
             for( Entity entity : currentMapTile.contents) {
-                if(entity.getName().equalsIgnoreCase(args[0])) {
+                if(entity.getName().equalsIgnoreCase(searchQuery)) {
                     System.out.println(entity.getDetailedDescription()); // is detailed
                     didDisplay = true;
                 }
             }
 
             // Edge cases
-            if(args[0].equalsIgnoreCase(playerName) || args[0].equalsIgnoreCase("self")) {
+            if(searchQuery.equalsIgnoreCase(playerName) || searchQuery.equalsIgnoreCase("self")) {
                 System.out.println("   ----------       ");
                 System.out.println("  --        --      ");
                 System.out.println(" --  .   .   --     ");
@@ -50,11 +58,9 @@ public class Look implements Command {
                 System.out.println("       ||           ");
                 System.out.println("       ||           ");
                 System.out.println("      /  \\           ");
-            } else if(args.length == 0) {
-                System.out.println("Please provide something to look at. For example, \"look goblin\"");
             } else if(!didDisplay) {
-                char firstChar = args[0].charAt(0);
-                System.out.println("Could not find a" + ("aeiou".indexOf(firstChar) != -1 ? "n" : "") + " " + args[0] + ". Check your spelling, or type \"look around\" to see if there is one nearby.");
+                char firstChar = searchQuery.charAt(0);
+                System.out.println("Could not find a" + ("aeiou".indexOf(firstChar) != -1 ? "n" : "") + " " + searchQuery + ". Check your spelling, or type \"look around\" to see if there is one nearby.");
             }
         }
     }

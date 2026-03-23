@@ -7,5 +7,7 @@ public class Armor extends Item {
     public Armor(String name, int addedAC) {
         this.name = name;
         this.addedAC = addedAC;
+
+        setDescription();
     }
 }

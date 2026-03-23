@@ -5,9 +5,8 @@ import java.util.ArrayList;
 import util.ManReturn;
 
 public class Help implements Command {
-    public String man = "Prints this list";
     public String getMan() {
-        return man;
+        return "Prints this list";
     }
     public void execute(Game.Engine game, String[] args) {
         ArrayList<ManReturn> mans = (ArrayList<ManReturn>) game.getManList();
