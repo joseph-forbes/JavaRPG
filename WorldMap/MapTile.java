@@ -18,5 +18,14 @@ public class MapTile {
         for(Entity entity : contents) {
             entity.update();
         }
+        collectGarbage();
+    }
+    void collectGarbage() {
+        for(int i=contents.size()- 1; i>= 0; i--) {
+            Entity entity = contents.get(i);
+            if(entity.isDead) {
+                contents.remove(i);
+            }
+        }
     }
 }

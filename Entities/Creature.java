@@ -36,16 +36,16 @@ public class Creature extends Entity {
             }
 
             if(didCrit) {
-                return new CombatReturn(creature.getStat("damage"), name);
+                return new CombatReturn(creature.getStat("damage"), name, hp);
             } else {
-                return new CombatReturn(creature.getStat("damage"), name);
+                return new CombatReturn(creature.getStat("damage"), name, hp);
             }
         } else if(roll != 0) {
-            return new CombatReturn(0, "opponent");
+            return new CombatReturn(0, "opponent", hp);
         } else {
             System.out.println("A critical failure :(");
             creature.changeStat("hp", -damage);
-            return new CombatReturn(damage, "opponent");
+            return new CombatReturn(damage, "opponent", hp);
         }
     }
 

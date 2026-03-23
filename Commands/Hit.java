@@ -67,7 +67,7 @@ public class Hit implements Command {
                 System.out.println("You missed.");
             } else {
                 System.out.println("The " + enemy.getName() + " took " + outcome.getDamage()
-                + " damage, and has " + enemy.getStat("hp") + " hp remaining.");
+                + " damage" + ((enemy.getStat("hp") > 0) ? ", and has " + enemy.getStat("hp") + " hp remaining." : ". The "  + enemy.getName() + " died!"));
             }
         } else {
             System.out.println("The " + entity.getName().toLowerCase() + " seems unimpressed by your pathetic flailing.");
