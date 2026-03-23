@@ -1,16 +1,21 @@
 package Game;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+
 import Commands.*;
 import Player.Player;
 import WorldMap.WorldMap;
+import util.ManReturn;
 
 public class Engine {
     private Map<String, Command> commands = new HashMap<>();
     Player player;
     WorldMap worldMap;
+    List<ManReturn> manList = new ArrayList<>();
 
     Scanner keyboard = new Scanner(System.in);
 
@@ -20,11 +25,15 @@ public class Engine {
     }
 
     private void registerCommands() {
-        commands.put("help", new Help());
-        commands.put("move", new Move());
-        commands.put("hit", new Hit());
-        commands.put("look", new Look()); // takes in name for an easter egg
-        commands.put("die", new Die());
+        registerCommand("die", new Die());
+        registerCommand("help", new Help());
+        registerCommand("hit", new Hit());
+        registerCommand("look", new Look());
+        registerCommand("move", new Move());
+    }
+    private void registerCommand(String string, Command command) {
+        commands.put(string, command);
+        manList.add(new ManReturn(string, command.getMan())); // purely stored for the Help command
     }
 
     public void executeCommand(String input) {
@@ -83,5 +92,8 @@ public class Engine {
     public void end() {
         System.out.println("Thanks for playing!");
         System.exit(0);
+    }
+    public List<ManReturn> getManList() {
+        return manList;
     }
 }

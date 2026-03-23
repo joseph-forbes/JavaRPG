@@ -8,6 +8,9 @@ enum Direction {
 
 public class Move implements Command {
     public String man = "Move the player. Takes in a direction (north, east, south, west).";
+    public String getMan() {
+        return man;
+    }
     Player player;
 
     public void execute(Engine game, String[] args) {
@@ -29,9 +32,9 @@ public class Move implements Command {
                     player.changePos('x', -1);
                 break;
             }
+            System.out.println("You move " + args[0].toLowerCase() + ".");
         } catch (IllegalArgumentException e) {
             System.out.println("Please input a valid direction (north, south, east, or west).");
         }
-        System.out.println("You move " + args[0].toLowerCase() + ".");
     }
 }

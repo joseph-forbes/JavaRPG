@@ -6,6 +6,9 @@ import Game.Engine;
 
 public class Look implements Command {
     public String man = "Look at an entity. Takes the name of the entity. Type \"look around\" to see everything around you.";
+    public String getMan() {
+        return man;
+    }
     
     WorldMap worldMap;
     String playerName;
@@ -51,7 +54,7 @@ public class Look implements Command {
                 System.out.println("Please provide something to look at. For example, \"look goblin\"");
             } else if(!didDisplay) {
                 char firstChar = args[0].charAt(0);
-                System.out.println("Could not find a" + ("aeiou".indexOf(firstChar) != -1 ? "n" : "") + " " + args[0] + ". Check your spelling, or type \"look around\" to see if there is one around.");
+                System.out.println("Could not find a" + ("aeiou".indexOf(firstChar) != -1 ? "n" : "") + " " + args[0] + ". Check your spelling, or type \"look around\" to see if there is one nearby.");
             }
         }
     }
