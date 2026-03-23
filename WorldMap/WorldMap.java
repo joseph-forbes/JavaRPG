@@ -22,6 +22,14 @@ public class WorldMap {
         worldMap[2][2].contents.add(new Entity());
     }
 
+    public void update() {
+        for (int row = 0; row < worldMap.length; row++) {
+            for (int col = 0; col < worldMap[row].length; col++) {
+                worldMap[row][col].update();
+            }
+        }
+    }
+
     public MapTile getCoordinatesOfMapTile(int x, int y) {
         return worldMap[y][x];
     }

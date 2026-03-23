@@ -14,5 +14,9 @@ public class MapTile {
         contents = new ArrayList<Entity>();
     }
 
-
+    public void update() {
+        for(Entity entity : contents) {
+            entity.update();
+        }
+    }
 }

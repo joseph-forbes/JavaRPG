@@ -69,6 +69,8 @@ public class Engine {
         executeCommand(input);
         System.out.println();
 
+        worldMap.update();
+
         System.out.println("The adventure of " + player.getName() + " continues.");
         
     }
