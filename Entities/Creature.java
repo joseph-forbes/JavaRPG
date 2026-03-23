@@ -36,7 +36,7 @@ public class Creature extends Entity {
             }
 
             if(didCrit) {
-                return new CombatReturn(creature.getStat("damage"), name, hp);
+                return new CombatReturn(creature.getStat("damage") * 2, name, hp);
             } else {
                 return new CombatReturn(creature.getStat("damage"), name, hp);
             }
@@ -78,7 +78,8 @@ public class Creature extends Entity {
         setDescription();
     }
 
-    private void setDescription() {
+    @Override
+    protected void setDescription() {
         description = "You see a " + name.toLowerCase() + ". It looks back at you.";
         detailedDescription = "You look at the " + name.toLowerCase() 
                             + ". It has " + hp + " hp. " 

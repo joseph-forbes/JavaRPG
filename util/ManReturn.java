@@ -1,18 +1,11 @@
 package util;
 
 public class ManReturn {
-    String commandName;
-    String man;
+    public String name;
+    public String man;
 
     public ManReturn(String name, String manField) {
-        commandName = name;
+        this.name = name;
         man = manField;
-    }
-
-    public String getCommandName() {
-        return commandName;
-    }
-    public String getMan() {
-        return man;
     }
 }

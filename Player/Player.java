@@ -1,10 +1,14 @@
 package Player;
 import util.Position;
 import Entities.Creature;
+
 public class Player extends Creature {
     Position pos = new Position(2, 2);
+    Inventory inventory = new Inventory();
 
     int lvl = 1;
+    int xpToNextLvl = 10000;
+    public int xp = 0;
 
     public Player(String name) {
         this.name = name;
@@ -41,5 +45,13 @@ public class Player extends Creature {
             default:
                 throw new Error("Please provide only x or y");
         }
+    }
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    @Override
+    public void update() {
+        inventory.update();
     }
 }

@@ -1,5 +1,19 @@
 package Player;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import Items.Item;
+
 public class Inventory {
-    
+    public List<Item> contents = new ArrayList<>();
+
+    public void update() {
+        for(int i=contents.size() - 1; i>=0; i--) {
+            Item item = contents.get(i);
+            if(item.used) {
+                contents.remove(i);
+            }
+        }
+    }
 }
