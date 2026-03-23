@@ -1,0 +1,68 @@
+package Commands;
+
+import Entities.Entity;
+import java.util.ArrayList;
+import Entities.Creature;
+import Player.Player;
+import WorldMap.*;
+
+import Game.Adventure;
+
+public class Hit implements Command {
+    public String man = "Attack something with your equipped weapon. \n" 
+                      + "Takes in an enemy (e.g. goblin, troll). \n"
+                      + "If there is more than one, also takes an index (1,2,3, etc.) to clarify which enemy is being attacked.";
+    public Hit() {} // Here so Help command can find the man string
+    
+    WorldMap worldMap;
+    MapTile currentTile;
+    Player player;
+
+    public void execute(Adventure game, String[] args) {
+
+        worldMap = game.getMap();
+        player = game.getPlayer();
+
+        String searchStr = args[0];
+        currentTile = worldMap.getCurrentMapTile();
+        ArrayList<Entity> potentialEnemies = new ArrayList<>();
+
+        for(Entity entity : currentTile.contents) {
+            if(entity.getName().equalsIgnoreCase(searchStr)) {
+                // This is the thing you're after
+                potentialEnemies.add(entity);
+            }
+        }
+        if(potentialEnemies.size() == 0) {
+            System.out.println("You try to hit the " + searchStr.toLowerCase() + " but can't see one nearby.");
+        } else if(potentialEnemies.size() == 1) {
+            // Only one possible target
+            hit(potentialEnemies.get(0), game);
+        } else {
+            if(args.length > 1) {
+                try {
+                    int index = Integer.parseInt(args[1]) - 1;
+                    hit(potentialEnemies.get(index), game);
+                } catch (NumberFormatException e) {
+                    System.out.println("Please input a valid index (1,2,etc.)");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("There are only " + potentialEnemies.size() + " enemies with that name. Please input a valid index");
+                }
+            } else {
+                hit(potentialEnemies.get(0), game);
+            }
+        }
+
+    }
+    private void hit(Entity entity, Adventure game) {
+        if(entity instanceof Creature enemy) {
+            enemy.takeDamage(player.getStat("damage"), player.getStat("damageBonus"), game.getMap().getCurrentMapTile());
+            
+            System.out.println("You hit the " 
+            + entity.getName().toLowerCase() + " for " 
+            + player.getStat("damage") + " damage.");
+        } else {
+            System.out.println("The " + entity.getName().toLowerCase() + " seems unimpressed by your pathetic flailing.");
+        }
+    }
+}
