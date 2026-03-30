@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import Entities.Creature;
 import Player.Player;
 import WorldMap.*;
-import util.CombatReturn;
+import util.Returns.CombatReturn;
 import Game.Engine;
 
 public class Hit implements Command {

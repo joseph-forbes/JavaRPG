@@ -1,4 +1,4 @@
-package util;
+package util.Returns;
 
 public class CombatReturn {
     int damage;

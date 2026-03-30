@@ -1,7 +1,7 @@
 package Entities;
 
-import util.CombatReturn;
 import util.Dice;
+import util.Returns.CombatReturn;
 
 public class Creature extends Entity {
     public boolean isEnemy = false;

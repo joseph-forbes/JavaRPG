@@ -1,4 +1,4 @@
-package util;
+package util.Returns;
 
 public class ManReturn {
     public String name;
