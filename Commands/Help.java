@@ -1,4 +1,4 @@
-package Commands;
+package commands;
 
 import java.util.ArrayList;
 
@@ -8,7 +8,7 @@ public class Help implements Command {
     public String getMan() {
         return "Prints this list";
     }
-    public void execute(Game.Engine game, String[] args) {
+    public void execute(gameengine.Engine game, String[] args) {
         ArrayList<ManReturn> mans = (ArrayList<ManReturn>) game.getManList();
         for(ManReturn man : mans) {
             String nameStr = man.name.toLowerCase();

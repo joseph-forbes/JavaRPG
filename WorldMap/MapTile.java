@@ -1,8 +1,8 @@
-package WorldMap;
+package worldmap;
 import java.util.ArrayList;
 import java.util.List;
 
-import Entities.Entity;
+import entities.Entity;
 
 public class MapTile {
     public List<Entity> contents = new ArrayList<>();

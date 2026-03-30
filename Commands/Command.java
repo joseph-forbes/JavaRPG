@@ -1,6 +1,6 @@
-package Commands;
+package commands;
 
-import Game.Engine;
+import gameengine.Engine;
 
 public interface Command {
     abstract void execute(Engine game, String[] args);

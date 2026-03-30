@@ -1,8 +1,7 @@
-package Commands;
-import WorldMap.*;
-import Entities.Entity;
-
-import Game.Engine;
+package commands;
+import entities.Entity;
+import gameengine.Engine;
+import worldmap.*;
 
 public class Look implements Command {
     public String getMan() {

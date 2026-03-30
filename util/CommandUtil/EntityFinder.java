@@ -2,9 +2,9 @@ package util.CommandUtil;
 
 import java.util.ArrayList;
 
-import Entities.Entity;
-import WorldMap.MapTile;
-import WorldMap.WorldMap;
+import entities.Entity;
+import worldmap.MapTile;
+import worldmap.WorldMap;
 
 public class EntityFinder {
     public Entity findEntity(String[] args, WorldMap worldMap) {

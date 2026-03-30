@@ -1,11 +1,11 @@
-package WorldMap;
+package worldmap;
 
-import Entities.*;
 import Game.Engine;
 import Items.Item;
 import Items.Gear.Armor.Armor;
 import Items.Gear.Tools.Weapon;
 import Player.Player;
+import entities.*;.Weapon;
 
 public class WorldMap {
     MapTile[][] worldMap = new MapTile[5][5];

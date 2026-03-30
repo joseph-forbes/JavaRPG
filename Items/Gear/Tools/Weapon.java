@@ -1,6 +1,6 @@
-package Items.Gear.Tools;
+package items.Gear.tools;
 
-import Items.Item;
+import items.Item;
 
 public class Weapon extends Item {
     protected int damage, damageBonus;

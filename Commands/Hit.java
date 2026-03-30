@@ -1,12 +1,13 @@
-package Commands;
+package commands;
 
-import Entities.Entity;
 import java.util.ArrayList;
-import Entities.Creature;
-import Player.Player;
-import WorldMap.*;
+
+import entities.Creature;
+import entities.Entity;
+import gameengine.Engine;
+import player.Player;
 import util.Returns.CombatReturn;
-import Game.Engine;
+import worldmap.*;
 
 public class Hit implements Command {
     public String getMan() {

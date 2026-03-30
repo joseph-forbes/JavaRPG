@@ -1,6 +1,6 @@
-package Commands;
+package commands;
 
-import Game.Engine;
+import gameengine.Engine;
 
 public class Use implements Command {
     public String getMan() {

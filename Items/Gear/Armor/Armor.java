@@ -1,6 +1,6 @@
-package Items.Gear.Armor;
+package items.Gear.armor;
 
-import Items.Item;
+import items.Item;
 
 public class Armor extends Item {
     protected int addedAC;

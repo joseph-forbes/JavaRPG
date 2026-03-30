@@ -1,6 +1,6 @@
-package Commands;
+package commands;
 
-import Game.Engine;
+import gameengine.Engine;
 import util.CommandUtil.EntityFinder;
 
 public class WorldInteractor implements Command {

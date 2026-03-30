@@ -1,8 +1,8 @@
-package Entities;
+package entities;
 
 public class Entity {
-    public boolean isDead = false; // Garbage collection marker
 
+    protected boolean isEnemy = false;
     protected String description;
     protected String detailedDescription;
 
@@ -27,6 +27,20 @@ public class Entity {
     }
 
     public void update() {
+        updateLogic();
+        updateRender();
+    }
+
+    protected void updateLogic() {
+
+    }
+    protected void updateRender() {
         setDescription();
     }
+
+    public boolean isDead() {
+        return false;
+    }
+
+
 }

@@ -1,9 +1,9 @@
-package Player;
+package player;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import Items.Item;
+import items.Item;
 
 public class Inventory {
     public List<Item> contents = new ArrayList<>();

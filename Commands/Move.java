@@ -1,6 +1,6 @@
-package Commands;
-import Game.Engine;
-import Player.Player;
+package commands;
+import gameengine.Engine;
+import player.Player;
 
 enum Direction {
     NORTH, EAST, SOUTH, WEST

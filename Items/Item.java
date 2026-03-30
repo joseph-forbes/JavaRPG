@@ -1,9 +1,9 @@
-package Items;
+package items;
 
-import Player.Inventory;
 import Entities.Entity;
 import Game.Engine;
 import Player.Player;
+import entities.Entity;
 
 public class Item extends Entity {
     protected int uses = 0;

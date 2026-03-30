@@ -1,6 +1,6 @@
-package Player;
+package player;
+import entities.Creature;
 import util.Position;
-import Entities.Creature;
 
 public class Player extends Creature {
     Position pos = new Position(2, 2);

@@ -1,10 +1,9 @@
-package Entities;
+package entities;
 
 import util.Dice;
 import util.Returns.CombatReturn;
 
 public class Creature extends Entity {
-    public boolean isEnemy = false;
     protected int hp, MAX_HP, damage, damageBonus, ac, xpOnDeath;
     protected Dice die = new Dice();
     //final int MAX_HP;
@@ -30,9 +29,6 @@ public class Creature extends Entity {
                 // crit
                 hp -= creature.getStat("damage");
                 System.out.println("A critical hit!");
-            }
-            if(hp <= 0) {
-                isDead = true;
             }
 
             if(didCrit) {
@@ -84,5 +80,10 @@ public class Creature extends Entity {
         detailedDescription = "You look at the " + name.toLowerCase() 
                             + ". It has " + hp + " hp. " 
                             + (isEnemy ? "It does not look very friendly. " : "It does not look too upset with you.");
+    }
+
+    @Override
+    public boolean isDead() {
+        return hp <= 0;
     }
 }

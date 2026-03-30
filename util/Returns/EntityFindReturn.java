@@ -1,6 +1,6 @@
 package util.Returns;
 
-import Entities.Entity;
+import entities.Entity;
 
 public class EntityFindReturn {
     public final String error;
