@@ -1,7 +1,7 @@
 package commands;
 
 import gameengine.Engine;
-import util.CommandUtil.EntityFinder;
+import util.commandutil.EntityFinder;
 
 public class WorldInteractor implements Command {
     protected String man;

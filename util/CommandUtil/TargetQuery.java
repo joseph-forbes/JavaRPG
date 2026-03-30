@@ -1,4 +1,4 @@
-package util.CommandUtil;
+package util.commandutil;
 
 public class TargetQuery {
     

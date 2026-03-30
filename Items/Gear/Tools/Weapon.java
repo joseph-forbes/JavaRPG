@@ -1,4 +1,4 @@
-package items.Gear.tools;
+package items.gear.tools;
 
 import items.Item;
 

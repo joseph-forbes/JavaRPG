@@ -6,7 +6,7 @@ import entities.Creature;
 import entities.Entity;
 import gameengine.Engine;
 import player.Player;
-import util.Returns.CombatReturn;
+import util.returnsutil.CombatReturn;
 import worldmap.*;
 
 public class Hit implements Command {
@@ -16,9 +16,9 @@ public class Hit implements Command {
                       + "If there is more than one, also takes an index (1,2,3, etc.) to clarify which enemy is being attacked.";
     }
     
-    WorldMap worldMap;
-    MapTile currentTile;
-    Player player;
+    private WorldMap worldMap;
+    private MapTile currentTile;
+    private Player player;
 
     public void execute(Engine game, String[] args) {
 
@@ -85,9 +85,9 @@ public class Hit implements Command {
                 System.out.println("The " + enemy.getName() + " took " + outcome.getDamage()
                 + " damage" + ((enemy.getStat("hp") > 0) ? ", and has " + enemy.getStat("hp") + " hp remaining." : ". The "  + enemy.getName() + " died!")
             );
-            if(enemy.isDead && enemy.getStat("xpOnDeath") > 0) {
+            if(enemy.isDead() && enemy.getStat("xpOnDeath") > 0) {
                 System.out.println("You earned " + enemy.getStat("xpOnDeath") + " xp.");
-                player.xp += enemy.getStat("xpOnDeath");
+                player.changeXp(enemy.getStat("xpOnDeath"));
             }
             }
         } else {

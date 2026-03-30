@@ -24,7 +24,7 @@ public class MapTile {
     private void collectGarbage() {
         for(int i=contents.size()- 1; i>= 0; i--) {
             Entity entity = contents.get(i);
-            if(entity.isDead) {
+            if(entity.isDead()) {
                 contents.remove(i);
             }
         }

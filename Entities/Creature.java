@@ -1,7 +1,7 @@
 package entities;
 
 import util.Dice;
-import util.Returns.CombatReturn;
+import util.returnsutil.CombatReturn;
 
 public class Creature extends Entity {
     protected int hp, MAX_HP, damage, damageBonus, ac, xpOnDeath;
@@ -68,10 +68,6 @@ public class Creature extends Entity {
             default:
                 throw new Error("Unknown Stat Type");
         }
-    }
-    @Override
-    public void update() {
-        setDescription();
     }
 
     @Override

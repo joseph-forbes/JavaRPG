@@ -1,11 +1,12 @@
 package worldmap;
 
-import Game.Engine;
-import Items.Item;
-import Items.Gear.Armor.Armor;
-import Items.Gear.Tools.Weapon;
-import Player.Player;
-import entities.*;.Weapon;
+import gameengine.Engine;
+import items.*;
+import items.gear.armor.*;
+import items.gear.tools.*;
+import entities.*;
+
+import player.Player;
 
 public class WorldMap {
     MapTile[][] worldMap = new MapTile[5][5];

@@ -2,7 +2,7 @@ package commands;
 
 import java.util.ArrayList;
 
-import util.Returns.ManReturn;
+import util.returnsutil.ManReturn;
 
 public class Help implements Command {
     public String getMan() {

@@ -1,14 +1,16 @@
 package player;
 import entities.Creature;
+import items.Item;
 import util.Position;
+import util.enums.Positions;
 
 public class Player extends Creature {
-    Position pos = new Position(2, 2);
-    Inventory inventory = new Inventory();
+    private Position location = new Position(2, 2);
+    private Inventory inventory = new Inventory();
 
-    int lvl = 1;
-    int xpToNextLvl = 10000;
-    public int xp = 0;
+    private int lvl = 1;
+    private int xpToNextLvl = 10000;
+    private int xp = 0;
 
     public Player(String name) {
         this.name = name;
@@ -20,38 +22,42 @@ public class Player extends Creature {
     }
 
     public Position getPos() {
-        return this.pos;
+        return this.location;
     }
-    public void setPos(char pos, int value) {
-        switch (pos) {
-            case 'x':
-                this.pos.x = value;
-            break;
-            case 'y':
-                this.pos.y = value;
-            break;
-            default:
-                throw new Error("Please provide only x or y");
+    public void setPos(Positions pos, int value) {
+        location.setPos(pos, value);
+    }
+    public void changePos(Positions pos, int amt) {
+        location.setPos(pos, location.x + amt);
+    }
+        
+    public int getLvl() {
+        return lvl;
+    }
+    public int getXp() {
+        return xp;
+    }
+    public void setXp(int amt) {
+        xp = amt;
+        if(xp > xpToNextLvl) {
+            lvl++;
+            xp -= xpToNextLvl;
+            xpToNextLvl += 100;
         }
     }
-    public void changePos(char pos, int amt) {
-        switch (pos) {
-            case 'x':
-                this.pos.x += amt;
-            break;
-            case 'y':
-                this.pos.y += amt;
-            break;
-            default:
-                throw new Error("Please provide only x or y");
-        }
+    public void changeXp(int amt) {
+        setXp(xp + amt);
     }
+
     public Inventory getInventory() {
         return inventory;
     }
+    public void addToInventory(Item item) {
+        inventory.contents.add(item);
+    }
 
     @Override
-    public void update() {
+    public void updateLogic() {
         inventory.update();
     }
 }
