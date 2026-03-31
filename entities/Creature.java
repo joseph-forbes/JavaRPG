@@ -1,11 +1,10 @@
 package entities;
 
-import util.Dice;
+import util.enums.Die;
 import util.returnsutil.CombatReturn;
 
 public class Creature extends Entity {
     protected int hp, MAX_HP, damage, damageBonus, ac, xpOnDeath;
-    protected Dice die = new Dice();
     //final int MAX_HP;
     public Creature(String name, int hp, int damage, int damageBonus, int ac, int xpOnDeath) {
         this.name = name;
@@ -21,7 +20,7 @@ public class Creature extends Entity {
 
     public CombatReturn takeHit(Creature creature) {
         // roll d20
-        int roll = die.roll(20);
+        int roll = Die.D20.roll();
         if(ac <= roll + creature.getStat("damageBonus")) {
             hp -= creature.getStat("damage");
             boolean didCrit = (roll == 20);
