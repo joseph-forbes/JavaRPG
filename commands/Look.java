@@ -1,9 +1,11 @@
 package commands;
 import entities.Entity;
 import gameengine.Engine;
+import util.Formatter;
+import util.returnsutil.EntityFindReturn;
 import worldmap.*;
 
-public class Look implements Command {
+public class Look extends WorldInteractor {
     public String getMan() {
         return "Look at an entity. Takes the name of the entity. Type \"look around\" to see everything around you.";
     }
@@ -13,54 +15,48 @@ public class Look implements Command {
 
     public void execute(Engine game, String[] args) {
         worldMap = game.getMap();
-        playerName = game.getPlayer().getName();
-
-        MapTile currentMapTile = worldMap.getCurrentMapTile();
-        if(args.length <= 0) {
-            System.out.println("Please provide something to look at. For example, \"look goblin\"");
-        } else if(args[0].toLowerCase().equalsIgnoreCase("around")) {
-            // "look around"
-            if(currentMapTile.contents.size() == 0) {
-                System.out.println("The world around you is eerily silent. You see nothing.");
-            }
-            for( Entity entity : currentMapTile.contents) {
-                System.out.println(entity.getDescription());
-            }
-        } else {
-            boolean didDisplay = false;
-
-            String searchQuery = "";
-            for(String word : args) {
-                searchQuery += word + " ";
-            }
-            searchQuery = searchQuery.substring(0, searchQuery.length() - 1); // remove trailing whitespace
-            
-            for( Entity entity : currentMapTile.contents) {
-                if(entity.getName().equalsIgnoreCase(searchQuery)) {
-                    System.out.println(entity.getDetailedDescription()); // is detailed
-                    didDisplay = true;
-                }
-            }
+                    boolean didDisplay = false;
 
             // Edge cases
             if(searchQuery.equalsIgnoreCase(playerName) || searchQuery.equalsIgnoreCase("self")) {
-                System.out.println("   ----------       ");
-                System.out.println("  --        --      ");
-                System.out.println(" --  .   .   --     ");
-                System.out.println(" --          --     ");
-                System.out.println(" --    u     --     ");
-                System.out.println("  --        --     This is you!");
-                System.out.println("   ----------   You look at yourself.");
-                System.out.println("       ||           ");
-                System.out.println("       ||/          ");
-                System.out.println("      /||           ");
-                System.out.println("       ||           ");
-                System.out.println("       ||           ");
-                System.out.println("      /  \\           ");
+                game.render("   ----------       \n" + 
+                            "  --        --      \n" + 
+                            " --  .   .   --     \n" + 
+                            " --          --     \n" + 
+                            " --    u     --     \n" + 
+                            "  --        --     This is you!\n" + 
+                            "   ----------   You look at yourself.\n" + 
+                            "       ||           \n" + 
+                            "       ||/          \n" + 
+                            "      /||           \n" + 
+                            "       ||           \n" + 
+                            "       ||           \n" + 
+                            "      /  \\           ");
             } else if(!didDisplay) {
-                char firstChar = searchQuery.charAt(0);
-                System.out.println("Could not find a" + ("aeiou".indexOf(firstChar) != -1 ? "n" : "") + " " + searchQuery + ". Check your spelling, or type \"look around\" to see if there is one nearby.");
+                System.out.println("Could not find a" + Formatter.needsAn(searchQuery) + searchQuery + ". Check your spelling, or type \"look around\" to see if there is one nearby.");
             }
+
+        
+    }
+    @Override
+    protected void interact(Engine game, EntityFindReturn output) {
+        playerName = game.getPlayer().getName();
+    }
+    @Override
+    protected void handleExceptions(Engine game, EntityFindReturn output) {
+        String name = output.searchStr;
+         switch (output.error) {
+            case "noentityprovided":
+                game.render("Please provide a creature.");
+            break;
+            case "nosuchentity":
+                game.render("Could not find a" + Formatter.needsAn(name) + name + 
+                ". Check your spelling and try again, or type \"look around\" to look around."
+            );
+            break;
+            default:
+                game.render("An unknown error occured. Please try again.");
+            break;
         }
     }
 }

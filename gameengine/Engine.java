@@ -47,23 +47,21 @@ public class Engine {
         if (command != null) {
             command.execute(this, otherParts);
         } else {
-            System.out.println("Unknown command. Type \"help\" for a list of commands.");
+            render("Unknown command. Type \"help\" for a list of commands.");
         }
     }
 
     void start() {
-        System.out.print("Name your character: ");
+        render("Name your character: ");
         player = new Player(keyboard.nextLine());
         worldMap = new WorldMap(this);
 
-        System.out.println("This is the beginning of the adventure of " + player.getName() + '.');
+        render("This is the beginning of the adventure of " + player.getName() + '.');
 
-        System.out.println();
-        System.out.println("On your initial look around: ");
+        render("\nOn your initial look around: ");
         executeCommand("look around"); // initially look at everything around you so you have a vibe of the world
-        System.out.println();
 
-        System.out.println("Type \"help\" for a list of commands.");
+        render("\nType \"help\" for a list of commands.");
 
         boolean gameRunning = true;
         while(gameRunning) {
@@ -74,14 +72,13 @@ public class Engine {
     void update() {
         System.out.print("What do you want to do next? ");
         String input = keyboard.nextLine();
-        System.out.println();
+        render();
         executeCommand(input);
-        System.out.println();
 
         worldMap.update();
         player.update();
 
-        System.out.println("The adventure of " + player.getName() + " continues.");
+        render("\nThe adventure of " + player.getName() + " continues.");
         
     }
     public WorldMap getMap() {
@@ -91,10 +88,17 @@ public class Engine {
         return player;
     }
     public void end() {
-        System.out.println("Thanks for playing!");
+        render("Thanks for playing!");
         System.exit(0);
     }
     public List<ManReturn> getManList() {
         return manList;
+    }
+
+    public void render(String text) {
+        System.out.println(text);
+    }
+    public void render() {
+        System.out.println();
     }
 }
