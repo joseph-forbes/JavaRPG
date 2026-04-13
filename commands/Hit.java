@@ -4,7 +4,6 @@ import entities.Creature;
 import entities.Entity;
 import gameengine.Engine;
 import player.Player;
-import util.Formatter;
 import util.returnsutil.CombatReturn;
 import util.returnsutil.EntityFindReturn;
 
@@ -16,6 +15,9 @@ public class Hit extends WorldInteractor {
     }
     
     private Player player;
+    public Hit() {
+        commandName = "hit";
+    }
 
     
     @Override
@@ -23,6 +25,8 @@ public class Hit extends WorldInteractor {
         player = game.getPlayer();
         Entity entity = output.entity;
         if(entity instanceof Creature) {
+            // Combat
+
             Creature enemy = (Creature) entity;
             CombatReturn outcome = enemy.takeHit(player);
             if(outcome.getSubject().equals("opponent") && outcome.getDamage() > 0) {
@@ -36,36 +40,16 @@ public class Hit extends WorldInteractor {
                     " took " + outcome.getDamage() + 
                     " damage" + ((enemy.getStat("hp") > 0) ? ", and has " + enemy.getStat("hp") + " hp remaining." : ". The "  + enemy.getName() + " died!")
                 );
-            if(enemy.isDead() && enemy.getStat("xpOnDeath") > 0) {
-                player.changeXp(enemy.getStat("xpOnDeath"));
-                game.render("You earned " + enemy.getStat("xpOnDeath") + " xp.");
+                if(enemy.isDead() && enemy.getStat("xpOnDeath") > 0) {
+                    player.changeXp(enemy.getStat("xpOnDeath"));
+                    game.render("You earned " + enemy.getStat("xpOnDeath") + " xp.");
+                }
             }
-            }
+
+
         } else {
-            handleExceptions(game, EntityFindReturn.failure("notcreature", output.searchStr));
+            // Not a creature
+            game.render("The " + output.searchStr + " seems unimpressed by your pathetic flailing.");
         }
     }
-
-    @Override
-    protected void handleExceptions(Engine game, EntityFindReturn output) {
-        // Possible exceptions: noentityprovided, nosuchentity notcreature.
-        String name = output.searchStr;
-        switch (output.error) {
-            case "noentityprovided":
-                game.render("Please provide a creature, i.e. \"hit goblin\"");
-            break;
-            case "nosuchentity":
-                game.render("Could not find a" + Formatter.needsAn(name) + name + 
-                ". Check your spelling and try again, or type \"look around\" to see what you can hit"
-            );
-            break;
-            case "notcreature":
-                game.render("The " + name + " seems unimpressed by your pathetic flailing.");
-            break;
-            default:
-                game.render("An unknown error occured. Please try again.");
-            break;
-        }
-    }
-
 }

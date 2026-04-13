@@ -51,7 +51,7 @@ public class Engine {
         }
     }
 
-    void start() {
+    public void start() {
         render("Name your character: ");
         player = new Player(keyboard.nextLine());
         worldMap = new WorldMap(this);
@@ -69,7 +69,7 @@ public class Engine {
         }
     }
 
-    void update() {
+    public void update() {
         System.out.print("What do you want to do next? ");
         String input = keyboard.nextLine();
         render();
@@ -81,6 +81,8 @@ public class Engine {
         render("\nThe adventure of " + player.getName() + " continues.");
         
     }
+    
+    
     public WorldMap getMap() {
         return worldMap;
     }

@@ -12,6 +12,7 @@ import worldmap.MapTile;
 public class WorldInteractor implements Command {
     protected String man;
     protected EntityFinder finder;
+    protected String commandName;
     public String getMan() {
         return man;
     }
@@ -33,20 +34,29 @@ public class WorldInteractor implements Command {
 
     protected void handleExceptions(Engine game, EntityFindReturn output) {
          // Possible exceptions: noentityprovided, nosuchentity
-        String name = output.searchStr;
+        String searchQuery = output.searchStr;
          switch (output.error) {
             case "noentityprovided":
-                game.render("Please provide a creature.");
+                handleNoEntityProvided(game, searchQuery);
             break;
             case "nosuchentity":
-                game.render("Could not find a" + Formatter.needsAn(name) + name + 
-                ". Check your spelling and try again."
-            );
+                handleNoSuchEntity(game, searchQuery);
             break;
             default:
-                game.render("An unknown error occured. Please try again.");
+                handleDefaultError(game, searchQuery);
             break;
         }
+    }
+    protected void handleNoEntityProvided(Engine game, String searchQuery) {
+        game.render("Please provide a creature, i.e. " + commandName + " goblin.");
+    }
+    protected void handleNoSuchEntity(Engine game, String searchQuery) {
+        game.render("Could not find a" + Formatter.needsAn(searchQuery) + searchQuery + 
+                ". Check your spelling and try again."
+            );
+    }
+    protected void handleDefaultError(Engine game, String searchQuery) {
+        game.render("An unknown error occured. Please try again.");
     }
 
 }

@@ -25,7 +25,7 @@ public class EntityFinder {
                 }
                 searchStr += word + " ";
             }
-            searchStr = searchStr.substring(0, searchStr.length() - 1); // remove trailing whitespace
+            searchStr = searchStr.trim(); // remove trailing whitespace
         }
         if(searchStr.length() == 0) {
             return EntityFindReturn.failure("noentityprovided", searchStr);

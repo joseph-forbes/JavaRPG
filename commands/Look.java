@@ -1,4 +1,5 @@
 package commands;
+import entities.Entity;
 import gameengine.Engine;
 import util.Formatter;
 import util.returnsutil.EntityFindReturn;
@@ -9,15 +10,20 @@ public class Look extends WorldInteractor {
         return "Look at an entity. Takes the name of the entity. Type \"look around\" to see everything around you.";
     }
     
-    WorldMap worldMap;
-    String playerName;
+
+    public Look() {
+        commandName = "look";
+    }
 
     @Override
     protected void interact(Engine game, EntityFindReturn output) {
-        playerName = game.getPlayer().getName();
-        String searchQuery = output.searchStr;
-
-        if(searchQuery.equalsIgnoreCase(playerName) || searchQuery.equalsIgnoreCase("self")) {
+        // Good behavior
+        System.out.println(output.entity);
+    }
+    
+    @Override
+    protected void handleNoSuchEntity(Engine game, String searchQuery) {
+        if(searchQuery.equalsIgnoreCase("self") || searchQuery.equalsIgnoreCase(game.getPlayer().getName())) {
             game.render("   ----------       \n" + 
                         "  --        --      \n" + 
                         " --  .   .   --     \n" + 
@@ -31,26 +37,17 @@ public class Look extends WorldInteractor {
                         "       ||           \n" + 
                         "       ||           \n" + 
                         "      /  \\           ");
+        } else if(searchQuery.equalsIgnoreCase("around")) {
+            // "look around"
+            MapTile currentTile = game.getMap().getCurrentMapTile();
+            for(Entity e : currentTile.contents) {
+                game.render(e.getDescription());
+            }
         } else {
-            System.out.println(output.entity);
-        }
-    }
-    @Override
-    protected void handleExceptions(Engine game, EntityFindReturn output) {
-         switch (output.error) {
-            case "noentityprovided":
-                game.render("Please provide a creature.");
-            break;
-            case "nosuchentity":
-                String searchQuery = output.searchStr;
-                game.render("Could not find a" + 
-                            Formatter.needsAn(searchQuery) + searchQuery + 
-                            ". Check your spelling, or type \"look around\" to see if there is one nearby."
-                );
-            break;
-            default:
-                game.render("An unknown error occured. Please try again.");
-            break;
+            game.render("Could not find a" + 
+                        Formatter.needsAn(searchQuery) + searchQuery + 
+                        ". Check your spelling, or type \"look around\" to see if there is one nearby."
+            );
         }
     }
 }
