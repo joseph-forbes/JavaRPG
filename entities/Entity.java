@@ -42,5 +42,8 @@ public class Entity {
         return false;
     }
 
-
+    public String toString() {
+        setDescription();
+        return detailedDescription;
+    }
 }
