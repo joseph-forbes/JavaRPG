@@ -3,6 +3,7 @@ package items;
 import entities.Entity;
 import gameengine.Engine;
 import player.Player;
+import util.Formatter;
 import player.Inventory;
 
 public class Item extends Entity {
@@ -33,7 +34,7 @@ public class Item extends Entity {
 
     @Override
     protected void setDescription() {
-        description = "You see a" + (("aeiou".indexOf(name) != -1) ? "n" : "") + " " + name + " lying on the ground.";
+        description = "You see a" + Formatter.needsAn(name) + name.toLowerCase() + " lying on the ground.";
         detailedDescription = "The " + name + " is lying on the ground. It is small enough to fit in your pocket.";
     }
     public boolean isUsed() {

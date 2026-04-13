@@ -45,7 +45,7 @@ public class Look extends WorldInteractor {
             }
         } else {
             game.render("Could not find a" + 
-                        Formatter.needsAn(searchQuery) + searchQuery + 
+                        Formatter.needsAn(searchQuery) + searchQuery.toLowerCase() + 
                         ". Check your spelling, or type \"look around\" to see if there is one nearby."
             );
         }

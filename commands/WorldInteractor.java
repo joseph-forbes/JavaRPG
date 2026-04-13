@@ -51,7 +51,7 @@ public class WorldInteractor implements Command {
         game.render("Please provide a creature, i.e. " + commandName + " goblin.");
     }
     protected void handleNoSuchEntity(Engine game, String searchQuery) {
-        game.render("Could not find a" + Formatter.needsAn(searchQuery) + searchQuery + 
+        game.render("Could not find a" + Formatter.needsAn(searchQuery) + (searchQuery.toLowerCase()) + 
                 ". Check your spelling and try again."
             );
     }
