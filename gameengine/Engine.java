@@ -28,8 +28,11 @@ public class Engine {
         registerCommand("die", new Die());
         registerCommand("help", new Help());
         registerCommand("hit", new Hit());
+        registerCommand("inventory", new commands.Inventory());
         registerCommand("look", new Look());
         registerCommand("move", new Move());
+        registerCommand("pickup", new Pickup());
+        registerCommand("use", new Use());
     }
     private void registerCommand(String string, Command command) {
         commands.put(string, command);

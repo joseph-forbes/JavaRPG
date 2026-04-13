@@ -79,7 +79,7 @@ public class EntityFinder {
             searchStr = searchStr.substring(0, searchStr.length() - 1); // remove trailing whitespace
         }
         if(searchStr.length() == 0) {
-            return EntityFindReturn.failure("noentityprovided", searchStr);
+            return EntityFindReturn.failure("noitemprovided", searchStr);
         }
         
         ArrayList<Item> potentialItems = new ArrayList<>();
@@ -91,7 +91,7 @@ public class EntityFinder {
             }
         }
         if(potentialItems.size() == 0) {
-            return EntityFindReturn.failure("nosuchentity", searchStr);
+            return EntityFindReturn.failure("nosuchitem", searchStr);
         } else if(potentialItems.size() == 1) {
             // Only one possible target
             item = potentialItems.get(0);

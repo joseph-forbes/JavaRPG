@@ -6,12 +6,10 @@ import util.returnsutil.EntityFindReturn;
 import worldmap.*;
 
 public class Look extends WorldInteractor {
-    public String getMan() {
-        return "Look at an entity. Takes the name of the entity. Type \"look around\" to see everything around you.";
-    }
     
 
     public Look() {
+        man = "Look at an entity. Takes the name of the entity. Type \"look around\" to see everything around you.";
         commandName = "look";
     }
 
