@@ -28,7 +28,17 @@ public class Player extends Creature {
         location.setPos(pos, value);
     }
     public void changePos(Positions pos, int amt) {
-        location.setPos(pos, location.x + amt);
+        switch (pos) {
+            case X:
+                setPos(pos, location.x + amt);
+            break;
+            case Y:
+                setPos(pos, location.y + amt);
+            break;
+            default:
+
+            break;
+        }
     }
         
     public int getLvl() {

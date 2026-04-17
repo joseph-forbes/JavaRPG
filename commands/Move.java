@@ -21,13 +21,13 @@ public class Move implements Command {
                     player.changePos(Positions.Y, 1);
                 break;
                 case EAST:
-                    player.changePos(Positions.Y, 1);
+                    player.changePos(Positions.X, 1);
                 break;
                 case SOUTH:
                     player.changePos(Positions.Y, -1);
                 break;
                 case WEST:
-                    player.changePos(Positions.Y, -1);
+                    player.changePos(Positions.X, -1);
                 break;
             }
             System.out.println("You move " + args[0].toLowerCase() + ".");

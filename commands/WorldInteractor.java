@@ -10,7 +10,6 @@ public class WorldInteractor implements Command {
         return man;
     }
     public void execute(Engine game, String[] args) {
-
-
+        
     }
 }
