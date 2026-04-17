@@ -30,9 +30,10 @@ public class Move implements Command {
                     player.changePos(Positions.X, -1);
                 break;
             }
-            System.out.println("You move " + args[0].toLowerCase() + ".");
+            game.render("You move " + args[0].toLowerCase() + ". You look around.");
+            game.executeCommand("look around");
         } catch (IllegalArgumentException e) {
-            System.out.println("Please input a valid direction (north, south, east, or west).");
+            game.render("Please input a valid direction (north, south, east, or west).");
         }
     }
 }

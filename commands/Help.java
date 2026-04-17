@@ -15,11 +15,11 @@ public class Help implements Command {
             String firstChar = (nameStr.charAt(0) + "").toUpperCase();
             nameStr = firstChar + nameStr.substring(1, nameStr.length()); 
 
-            System.out.println(
+            game.render(
                 nameStr + 
-                ": " + man.man
+                ": " + man.man +
+                "\n------------------------"
             );
-            System.out.println("------------------------");
         }
 
     }

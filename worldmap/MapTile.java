@@ -5,7 +5,7 @@ import java.util.List;
 import entities.Entity;
 
 public class MapTile {
-    public List<Entity> contents = new ArrayList<>();
+    public List<Entity> contents;
 
     public MapTile(ArrayList<Entity> contents) {
         this.contents = contents;
