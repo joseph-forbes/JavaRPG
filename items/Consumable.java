@@ -22,15 +22,17 @@ public class Consumable extends Item {
 
     @Override
     public void use() {
-        usesRemaining--;
-        updateFunction();
+        consume();
+        remainingUses--;
     }
-    @Override
-    protected void updateFunction() {
-        function = itemFunction + " Has " + usesRemaining + " uses remaining.";
+    public void reduceUses() {
+        remainingUses--;
+    }
+    protected void consume() {
+
     }
     @Override
     public boolean isUsed() {
-        return uses > MAX_USES;
+        return remainingUses <= 0;
     }
 }

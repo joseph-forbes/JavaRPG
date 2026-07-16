@@ -27,7 +27,7 @@ public class WorldMap {
         worldMap[2][2].contents.add(new Entity());
         worldMap[2][2].contents.add(new Food("Corndog"));
         worldMap[2][2].contents.add(new Armor("Corndog Chestplate", 2));
-        worldMap[2][2].contents.add(new Weapon("Corndog Blaster", 10, 3));
+        worldMap[2][2].contents.add(new Bow("Corndog Blaster", 10, 3));
     }
 
     public void update() {
