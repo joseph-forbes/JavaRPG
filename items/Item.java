@@ -6,11 +6,11 @@ import player.Inventory;
 
 public class Item extends Entity {
     protected String function;
-    protected boolean isGarbage = false;
+    protected boolean isInInventory = false; // Game world
 
     public void pickup(Inventory inventory) {
         // Remove from game world
-        isGarbage = true;
+        isInInventory = true;
 
         inventory.contents.add(this);
     }
@@ -36,14 +36,17 @@ public class Item extends Entity {
         description = "You see a" + Formatter.needsAn(name) + name.toLowerCase() + " lying on the ground.";
         detailedDescription = "The " + name + " is lying on the ground. It is small enough to fit in your pocket.";
     }
+    protected void updateFunction() {
+        this.function = "Just kind of takes up inventory space.";
+    }
     public boolean isUsed() {
-        return false;
+        return false; // Inventory world
     }
     @Override
     public boolean isDead() {
-        return isGarbage;
+        return isInInventory;
     }
     public String toString() {
-        return isGarbage ? function : description;
+        return isInInventory ? function : description; // If in inventory, print item function. Otherwise, print that the item description in-world
     }
 }

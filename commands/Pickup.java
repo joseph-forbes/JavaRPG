@@ -21,7 +21,7 @@ public class Pickup extends WorldInteractor {
             Inventory inventory = game.getPlayer().getInventory();
 
             item.pickup(inventory);
-            game.render("You pick the " + item.getName().toLowerCase() + ".");
+            game.render("You pick the " + item.getName().toLowerCase() + " up.");
         } else {
             // this does not spark item
             game.render("The " + output.searchStr.toLowerCase() + " is too big to fit in your pocket.");

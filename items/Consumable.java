@@ -1,26 +1,33 @@
 package items;
 
 public class Consumable extends Item {
-    protected int uses;
-    protected final int MAX_USES;
+    protected int usesRemaining;
+    protected String itemFunction;
 
     public Consumable() {
         this("Consumable");
     }
     public Consumable(String name) {
-        this(name, "");
-        function = "Just kind of takes up inventory space. Has " + uses + " out of " + MAX_USES + "uses.";
+        this(name, "Just kind of takes up inventory space.");
     }
     public Consumable(String name, String function) {
         this(name, function, 1);
     }
-    public Consumable(String name, String function, int MAX_USES) {
-        this.MAX_USES = MAX_USES;
+    public Consumable(String name, String function, int maxUses) {
+        super(name);
+        itemFunction = function;
+        this.usesRemaining = maxUses;
+        this.function = itemFunction + " Has " + usesRemaining + " uses remaining.";
     }
 
     @Override
     public void use() {
-        uses++;
+        usesRemaining--;
+        updateFunction();
+    }
+    @Override
+    protected void updateFunction() {
+        function = itemFunction + " Has " + usesRemaining + " uses remaining.";
     }
     @Override
     public boolean isUsed() {

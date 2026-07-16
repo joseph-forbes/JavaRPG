@@ -24,6 +24,7 @@ public class Use implements Command {
             Item item = (Item) output.entity;
 
             item.use();
+            game.render("You used the " + item.getName() + '.');
         } else {
             handleExceptions(game, output);
         }
@@ -33,7 +34,7 @@ public class Use implements Command {
         String searchQuery = output.searchStr;
         switch (output.error) {
             case "noitemprovided":
-                
+                game.render("Please provide an item (i.e. \"pickup Corndog\").");
             break;
             case "nosuchitem":
                 game.render("Could not find a" + Formatter.needsAn(searchQuery) + searchQuery.toLowerCase() + 
