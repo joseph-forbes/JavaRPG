@@ -33,6 +33,7 @@ public class Engine {
         registerCommand("move", new Move());
         registerCommand("pickup", new Pickup());
         registerCommand("use", new Use());
+        registerCommand("equip", new Equip());
     }
     private void registerCommand(String string, Command command) {
         commands.put(string, command);

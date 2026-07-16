@@ -23,21 +23,25 @@ public class Use implements Command {
         if(output.entity instanceof Item) {
             Item item = (Item) output.entity;
 
-            item.use();
+            interact(game, item);
         } else {
             handleExceptions(game, output);
         }
+    }
+
+    protected void interact(Engine game, Item item) {
+        item.use();
     }
     private static void handleExceptions(Engine game, EntityFindReturn output) {
         // Possible exceptions: noitemprovided, nosuchitem
         String searchQuery = output.searchStr;
         switch (output.error) {
             case "noitemprovided":
-                
+                game.render("Please provide an item.");
             break;
             case "nosuchitem":
                 game.render("Could not find a" + Formatter.needsAn(searchQuery) + searchQuery.toLowerCase() + 
-                ". Check your spelling."
+                " in your inventory. Check your spelling or type \"inventory\" to look in your inventory."
             );
             break;
             default:

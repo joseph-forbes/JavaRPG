@@ -5,9 +5,15 @@ import items.Item;
 public class Armor extends Item {
     protected int addedAC;
     public Armor(String name, int addedAC) {
-        this.name = name;
+        super(name);
         this.addedAC = addedAC;
 
+        function = "provides a +" + addedAC + " bonus to your defense.";
+
         setDescription();
+    }
+
+    public int getAddedAC() {
+        return addedAC;
     }
 }
