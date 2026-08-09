@@ -25,7 +25,7 @@ public class Player extends Creature {
         ac = 10;
         damage = 1;
         damageBonus = 0;
-        equipment = new Equipment(new Armor("Leather Tunic", 0), new Weapon("Fists", 1));
+        equipment = new Equipment(new Armor("Leather Tunic", 0), new Weapon("Pair of Fists", 1));
     }
 
     public Position getPos() {

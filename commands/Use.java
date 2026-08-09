@@ -23,15 +23,14 @@ public class Use implements Command {
         if(output.entity instanceof Item) {
             Item item = (Item) output.entity;
 
-            item.use();
-            game.render("You used the " + item.getName() + '.');
+            interact(game, item);
         } else {
             handleExceptions(game, output);
         }
     }
 
     protected void interact(Engine game, Item item) {
-        item.use();
+        item.use(game);
     }
     private static void handleExceptions(Engine game, EntityFindReturn output) {
         // Possible exceptions: noitemprovided, nosuchitem

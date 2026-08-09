@@ -1,6 +1,7 @@
 package items;
 
 import entities.Entity;
+import gameengine.Engine;
 import util.Formatter;
 import player.Inventory;
 
@@ -27,8 +28,8 @@ public class Item extends Entity {
         setDescription();
     }
 
-    public void use() {
-        
+    public void use(Engine game) {
+        game.render("You used the " + name + '.');
     }
 
     @Override

@@ -1,6 +1,7 @@
 package entities;
 
 import util.enums.Die;
+import util.enums.Stats;
 import util.returnsutil.CombatReturn;
 
 public class Creature extends Entity {
@@ -21,48 +22,50 @@ public class Creature extends Entity {
     public CombatReturn takeHit(Creature creature) {
         // roll d20
         int roll = Die.D20.roll();
-        if(ac <= roll + creature.getStat("damageBonus")) {
-            hp -= creature.getStat("damage");
+        if(ac <= roll + creature.getStat(Stats.DAMAGE)) {
+            hp -= creature.getStat(Stats.DAMAGE);
             boolean didCrit = (roll == 20);
             if(didCrit) {
                 // crit
-                hp -= creature.getStat("damage");
+                hp -= creature.getStat(Stats.DAMAGE);
                 System.out.println("A critical hit!");
             }
 
             if(didCrit) {
-                return new CombatReturn(creature.getStat("damage") * 2, name, hp);
+                return new CombatReturn(creature.getStat(Stats.DAMAGE) * 2, name, hp);
             } else {
-                return new CombatReturn(creature.getStat("damage"), name, hp);
+                return new CombatReturn(creature.getStat(Stats.DAMAGE), name, hp);
             }
         } else if(roll != 0) {
             return new CombatReturn(0, "opponent", hp);
         } else {
             System.out.println("A critical failure :(");
-            creature.changeStat("hp", -damage);
+            creature.changeStat(Stats.HP, -damage);
             return new CombatReturn(damage, "opponent", hp);
         }
     }
 
-    public void changeStat(String stat, int amt) {
+    public void changeStat(Stats stat, int amt) {
         switch (stat) {
-            case "damage":
-                damage += amt;
-            case "hp":
+            case HP:
                 hp += amt;
+                break;
+            case DAMAGE:
+                damage += amt;
+                break;
             default:
-                throw new Error("That stat is either non-existent or not modifiable.");
+                throw new Error(stat + " is either non-existent or not modifiable.");
         }
     }
-    public int getStat(String stat) {
+    public int getStat(Stats stat) {
         switch (stat) {
-            case "damage":
+            case DAMAGE:
                 return damage;
-            case "damageBonus":
+            case DAMAGE_BONUS:
                 return damageBonus;
-            case "hp":
+            case HP:
                 return hp;
-            case "xpOnDeath":
+            case XP_ON_DEATH:
                 return xpOnDeath;
             default:
                 throw new Error("Unknown Stat Type");

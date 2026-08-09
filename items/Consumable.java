@@ -1,5 +1,8 @@
 package items;
 
+import gameengine.Engine;
+import util.Formatter;
+
 public class Consumable extends Item {
     protected int usesRemaining;
     protected String itemFunction;
@@ -21,18 +24,20 @@ public class Consumable extends Item {
     }
 
     @Override
-    public void use() {
-        consume();
-        remainingUses--;
+    public void use(Engine game) {
+        consume(game);
+        usesRemaining--;
+        function = itemFunction + " Has " + usesRemaining + " uses remaining.";
     }
     public void reduceUses() {
-        remainingUses--;
+        usesRemaining--;
+        function = itemFunction + " Has " + usesRemaining + " use" + Formatter.needsPlural(usesRemaining) +" remaining.";
     }
-    protected void consume() {
+    protected void consume(Engine game) {
 
     }
     @Override
     public boolean isUsed() {
-        return remainingUses <= 0;
+        return usesRemaining <= 0;
     }
 }

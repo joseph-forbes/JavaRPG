@@ -4,6 +4,7 @@ import entities.Creature;
 import entities.Entity;
 import gameengine.Engine;
 import player.Player;
+import util.enums.Stats;
 import util.returnsutil.CombatReturn;
 import util.returnsutil.EntityFindReturn;
 
@@ -37,11 +38,16 @@ public class Hit extends WorldInteractor {
                 game.render(
                     "The " + enemyName.toLowerCase() + 
                     " took " + outcome.getDamage() + 
-                    " damage" + ((enemy.getStat("hp") > 0) ? ", and has " + enemy.getStat("hp") + " hp remaining." : ". The "  + enemyName.toLowerCase() + " died!")
+                    " damage" + (
+                        (enemy.getStat(Stats.HP) > 0) ? 
+                        ", and has " + enemy.getStat(Stats.HP) + " hp remaining." : 
+                        ". The "  + enemyName.toLowerCase() + " died!"
+                    )
                 );
-                if(enemy.isDead() && enemy.getStat("xpOnDeath") > 0) {
-                    player.changeXp(enemy.getStat("xpOnDeath"));
-                    game.render("You earned " + enemy.getStat("xpOnDeath") + " xp.");
+                int xp = enemy.getStat(Stats.XP_ON_DEATH);
+                if(enemy.isDead() && xp > 0) {
+                    player.changeXp(xp);
+                    game.render("You earned " + xp + " xp.");
                 }
             }
 

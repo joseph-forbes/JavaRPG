@@ -1,5 +1,6 @@
 package items.gear.tools;
 
+import gameengine.Engine;
 import items.Consumable;
 
 public class Bow extends Weapon {
@@ -25,7 +26,7 @@ public class Bow extends Weapon {
         return ammo;
     }
     @Override
-    public void use() {
+    public void use(Engine game) {
         this.ammo.reduceUses();
     }
 }
