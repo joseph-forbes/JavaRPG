@@ -1,10 +1,12 @@
 package items.gear.tools;
 
-import gameengine.Engine;
-import items.Consumable;
+import items.Ammo;
+import items.ammo.Arrow;
+import player.Player;
+import util.InventoryFinder;
 
 public class Bow extends Weapon {
-    private Consumable ammo;
+    final private Class<? extends Ammo> ammoType;
     public Bow() {
         this("Bow");
     }
@@ -15,18 +17,29 @@ public class Bow extends Weapon {
         this(name, damage, 0);
     }
     public Bow(String name, int damage, int damageBonus) {
-        this(name, damage, damageBonus, new Consumable("Arrow"));
+        this(name, damage, damageBonus, Arrow.class);
     }
-    public Bow(String name, int damage, int damageBonus, Consumable ammo) {
+    public Bow(String name, int damage, int damageBonus, Class<? extends Ammo> ammoType) {
         super(name, damage, damageBonus);
-        this.ammo = ammo;
+        this.ammoType = ammoType;
     }
 
-    public Consumable getammo() {
-        return ammo;
+    public Class<? extends Ammo> getAmmoType() {
+        return ammoType;
     }
-    @Override
-    public void use(Engine game) {
-        this.ammo.reduceUses();
+    public int attack(Player player) {
+        Ammo ammo = (Ammo) InventoryFinder.find(player.getInventory(), ammoType);
+
+        if (ammo == null) {
+            System.out.println("You don't have any " + ammoType.getSimpleName().toLowerCase() + "s.");
+            return 0;
+        } else {
+            // Use the ammo
+            ammo.shoot();
+            return damage + ammo.getDamage();
+        }
+
+        // Perform attack...
+        //System.out.println("Fired " + ammoType.getSimpleName());
     }
 }

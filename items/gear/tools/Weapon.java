@@ -1,6 +1,7 @@
 package items.gear.tools;
 
 import items.Item;
+import player.Player;
 
 public class Weapon extends Item {
     protected int damage, damageBonus;
@@ -28,5 +29,8 @@ public class Weapon extends Item {
     }
     public int getDamageBonus() {
         return damageBonus;
+    }
+    public int attack(Player player) {
+        return damage;
     }
 }

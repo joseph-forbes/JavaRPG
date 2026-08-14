@@ -9,6 +9,7 @@ import java.util.List;
 import player.Player;
 import worldmap.*;
 import commands.*;
+import util.enums.Stats;
 import util.returnsutil.ManReturn;
 
 public class Engine {
@@ -16,11 +17,13 @@ public class Engine {
     Player player;
     WorldMap worldMap;
     List<ManReturn> manList = new ArrayList<>();
+    public boolean isNSFW;
 
     Scanner keyboard = new Scanner(System.in);
 
 
     public Engine() {
+        isNSFW = false;
         registerCommands();
     }
 
@@ -34,6 +37,8 @@ public class Engine {
         registerCommand("pickup", new Pickup());
         registerCommand("use", new Use());
         registerCommand("equip", new Equip());
+        registerCommand("unequip", new Unequip());
+        registerCommand("nsfw", new WhyAreYouLikeThis());
     }
     private void registerCommand(String string, Command command) {
         commands.put(string, command);
@@ -82,7 +87,12 @@ public class Engine {
         worldMap.update();
         player.update();
 
-        render("\nThe adventure of " + player.getName() + " continues.");
+        if(player.isDead()) {
+            render("You died.");
+            end();
+        } else {
+            render("\nThe adventure of " + player.getName() + " continues. HP: " + player.getStat(Stats.HP));
+        }
         
     }
     

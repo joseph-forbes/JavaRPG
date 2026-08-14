@@ -1,7 +1,7 @@
 package worldmap;
 
 import gameengine.Engine;
-import items.*;
+import items.ammo.Corndog;
 import items.gear.armor.*;
 import items.gear.tools.*;
 import entities.*;
@@ -25,9 +25,9 @@ public class WorldMap {
         worldMap[2][2].contents.add(new Creature("Steven", 5, 2, 0, 10, 0));
         worldMap[2][2].contents.add(new Creature("Steven", 5, 2, 0, 10, 0));
         worldMap[2][2].contents.add(new Entity());
-        worldMap[2][2].contents.add(new Food("Corndog"));
+        worldMap[2][2].contents.add(new Corndog());
         worldMap[2][2].contents.add(new Armor("Corndog Chestplate", 2));
-        worldMap[2][2].contents.add(new Bow("Corndog Blaster", 10, 3));
+        worldMap[2][2].contents.add(new Bow("Corndog Blaster", 10, 3, Corndog.class));
     }
 
     public void update() {

@@ -15,6 +15,9 @@ public class Item extends Entity {
 
         inventory.contents.add(this);
     }
+    public void removeFromInventory() {
+        isInInventory = false;
+    }
 
     public Item() {
         this("item");
@@ -41,11 +44,11 @@ public class Item extends Entity {
         this.function = "Just kind of takes up inventory space.";
     }
     public boolean isUsed() {
-        return false; // Inventory world
+        return !isInInventory; // Inventory World
     }
     @Override
     public boolean isDead() {
-        return isInInventory;
+        return isInInventory; // Real World
     }
     public String toString() {
         return isInInventory ? function : description; // If in inventory, print item function. Otherwise, print that the item description in-world

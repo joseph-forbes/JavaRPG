@@ -32,7 +32,7 @@ public class Use implements Command {
     protected void interact(Engine game, Item item) {
         item.use(game);
     }
-    private static void handleExceptions(Engine game, EntityFindReturn output) {
+    protected static void handleExceptions(Engine game, EntityFindReturn output) {
         // Possible exceptions: noitemprovided, nosuchitem
         String searchQuery = output.searchStr;
         switch (output.error) {

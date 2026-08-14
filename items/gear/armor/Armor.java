@@ -12,6 +12,9 @@ public class Armor extends Item {
 
         setDescription();
     }
+    public Armor() {
+        this("", 0);
+    }
 
     public int getAddedAC() {
         return addedAC;

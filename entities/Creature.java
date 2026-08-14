@@ -2,7 +2,6 @@ package entities;
 
 import util.enums.Die;
 import util.enums.Stats;
-import util.returnsutil.CombatReturn;
 
 public class Creature extends Entity {
     protected int hp, MAX_HP, damage, damageBonus, ac, xpOnDeath;
@@ -19,30 +18,29 @@ public class Creature extends Entity {
     }
     public Creature() {}
 
-    public CombatReturn takeHit(Creature creature) {
+    public void hit(Creature creature) {
         // roll d20
         int roll = Die.D20.roll();
-        if(ac <= roll + creature.getStat(Stats.DAMAGE)) {
-            hp -= creature.getStat(Stats.DAMAGE);
-            boolean didCrit = (roll == 20);
-            if(didCrit) {
-                // crit
-                hp -= creature.getStat(Stats.DAMAGE);
+        if(roll + damageBonus >= creature.getStat(Stats.AC)) {
+            creature.takeHit(damage);
+            if(roll == 20) {
                 System.out.println("A critical hit!");
-            }
-
-            if(didCrit) {
-                return new CombatReturn(creature.getStat(Stats.DAMAGE) * 2, name, hp);
+                creature.takeHit(damage);
+                System.out.println(name + " hit " + creature.name + " for " + damage * 2 + " damage.");
             } else {
-                return new CombatReturn(creature.getStat(Stats.DAMAGE), name, hp);
+                System.out.println(name + " hit " + creature.name + " for " + damage + " damage.");
             }
-        } else if(roll != 0) {
-            return new CombatReturn(0, "opponent", hp);
+        } else if(roll != 1) {
+            System.out.println(name + " missed.");
         } else {
-            System.out.println("A critical failure :(");
-            creature.changeStat(Stats.HP, -damage);
-            return new CombatReturn(damage, "opponent", hp);
+            System.out.println("A critical failure!");
+            hp -= damage;
+            System.out.println(name + " hit itself for " + damage + " damage. " + name + " has " + creature.getStat(Stats.HP) + " hp remaining");
         }
+    }
+
+    public void takeHit(int damage) {
+        hp -= damage;
     }
 
     public void changeStat(Stats stat, int amt) {
@@ -67,6 +65,8 @@ public class Creature extends Entity {
                 return hp;
             case XP_ON_DEATH:
                 return xpOnDeath;
+            case AC:
+                return ac;
             default:
                 throw new Error("Unknown Stat Type");
         }

@@ -4,8 +4,6 @@ import entities.Creature;
 import entities.Entity;
 import gameengine.Engine;
 import player.Player;
-import util.enums.Stats;
-import util.returnsutil.CombatReturn;
 import util.returnsutil.EntityFindReturn;
 
 public class Hit extends WorldInteractor {
@@ -27,31 +25,7 @@ public class Hit extends WorldInteractor {
             // Combat
 
             Creature enemy = (Creature) entity;
-            CombatReturn outcome = enemy.takeHit(player);
-            if(outcome.getSubject().equals("opponent") && outcome.getDamage() > 0) {
-                // Player was subject
-                game.render("You missed so badly you hit yourself. You took " + outcome.getDamage() + " damage.");
-            } else if(outcome.getSubject().equals("opponent")) {
-                game.render("You missed!");
-            } else {
-                String enemyName = enemy.getName();
-                game.render(
-                    "The " + enemyName.toLowerCase() + 
-                    " took " + outcome.getDamage() + 
-                    " damage" + (
-                        (enemy.getStat(Stats.HP) > 0) ? 
-                        ", and has " + enemy.getStat(Stats.HP) + " hp remaining." : 
-                        ". The "  + enemyName.toLowerCase() + " died!"
-                    )
-                );
-                int xp = enemy.getStat(Stats.XP_ON_DEATH);
-                if(enemy.isDead() && xp > 0) {
-                    player.changeXp(xp);
-                    game.render("You earned " + xp + " xp.");
-                }
-            }
-
-
+            player.hit(enemy);
         } else {
             // Not a creature
             game.render("The " + output.searchStr + " seems unimpressed by your pathetic flailing.");
