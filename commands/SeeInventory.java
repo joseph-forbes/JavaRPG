@@ -5,7 +5,7 @@ import util.Formatter;
 import gameengine.Engine;
 import items.Item;
 
-public class Inventory implements Command {
+public class SeeInventory implements Command {
     public String getMan() {
         return "Look at all items in your inventory.";
     }

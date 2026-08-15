@@ -2,7 +2,7 @@ package items.gear.armor;
 
 public class NoArmor extends Armor {
     public NoArmor() {
-        super("Nothing", -5);
+        super("None", -1);
     }
     @Override
     public boolean isUsed() {

@@ -31,14 +31,16 @@ public class Engine {
         registerCommand("die", new Die());
         registerCommand("help", new Help());
         registerCommand("hit", new Hit());
-        registerCommand("inventory", new commands.Inventory());
+        registerCommand("inventory", new commands.SeeInventory());
         registerCommand("look", new Look());
         registerCommand("move", new Move());
         registerCommand("pickup", new Pickup());
         registerCommand("use", new Use());
+
         registerCommand("equip", new Equip());
         registerCommand("unequip", new Unequip());
         registerCommand("nsfw", new WhyAreYouLikeThis());
+        registerCommand("stats", new Statsheet());
     }
     private void registerCommand(String string, Command command) {
         commands.put(string, command);

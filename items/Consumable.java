@@ -27,10 +27,10 @@ public class Consumable extends Item {
     public void use(Engine game) {
         consume(game);
         usesRemaining--;
-        function = itemFunction + " Has " + usesRemaining + " uses remaining.";
+        function = itemFunction + " Has " + usesRemaining + " use" + Formatter.needsPlural(usesRemaining) +" remaining.";
     }
     public void reduceUses() {
-        usesRemaining--;
+        usesRemaining--; // Use without consuming
         function = itemFunction + " Has " + usesRemaining + " use" + Formatter.needsPlural(usesRemaining) +" remaining.";
     }
     protected void consume(Engine game) {
