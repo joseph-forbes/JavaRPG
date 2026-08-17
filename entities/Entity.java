@@ -5,12 +5,25 @@ public class Entity {
     protected boolean isEnemy = false;
     protected String description;
     protected String detailedDescription;
+    protected String name = "thing";
+    private String oDescription;
+    private String oDetailedDescription;
 
     public Entity() {
+        this("Generic Thing");
+    }
+    public Entity(String name) {
+        this(name, "There does not seem to be anything particularly special about the " + name + " and you get the vibe it exists purely as filler content.");
+    }
+    public Entity(String name, String detailedDescription) {
+        this(name, detailedDescription, "You see a " + name.toLowerCase() + ".");
+    }
+    public Entity(String name, String detailedDescription, String description) {
+        this.name = name;
+        oDescription = this.description = description;
+        oDetailedDescription = this.detailedDescription = detailedDescription;
         setDescription();
     }
-    
-    protected String name = "thing";
 
     public String getName() {
         return name;
@@ -19,8 +32,8 @@ public class Entity {
         return description;
     }
     protected void setDescription() {
-        description = "You see a generic thing.";
-        detailedDescription = "It's literally just a thing. There is no description beyond that, I'm not sure what you're asking for.";
+        description = oDescription;
+        detailedDescription = oDetailedDescription;
     }
     public String getDetailedDescription() {
         return detailedDescription;

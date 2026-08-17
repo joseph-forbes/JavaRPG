@@ -6,8 +6,10 @@ import items.Food;
 public class Corndog extends Food implements Ammo {
 
     public Corndog() {
-        name = "Corndog";
-        healingPower = 3;
+        this(1);
+    }
+    public Corndog(int amt) {
+        super("Corndog", amt, 3);
     }
 
     @Override

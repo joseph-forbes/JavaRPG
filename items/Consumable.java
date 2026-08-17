@@ -37,6 +37,15 @@ public class Consumable extends Item {
 
     }
     @Override
+    protected void setDescription() {
+        description = "You see a" + Formatter.needsAn(name) + name.toLowerCase() + " lying on the ground.";
+        detailedDescription = 
+            usesRemaining > 1 ? 
+            "The " + name.toLowerCase() + " appears to be small enough to fit in your pocket" : 
+            "There are " + usesRemaining + " " + name.toLowerCase() + "s in a pile. You can probably fit all of them in your pocket.";
+
+    }
+    @Override
     public boolean isUsed() {
         return usesRemaining <= 0;
     }

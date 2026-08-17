@@ -2,14 +2,12 @@ package commands;
 
 import gameengine.Engine;
 import player.Player;
-import util.Formatter;
 import util.enums.Stats;
 
 public class Statsheet implements Command {
 
     @Override
     public void execute(Engine game, String[] args) {
-        // TODO Auto-generated method stub
         Player player = game.getPlayer();
 
         game.render("Name: " + player.getName());

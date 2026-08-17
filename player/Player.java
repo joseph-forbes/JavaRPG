@@ -1,4 +1,5 @@
 package player;
+
 import entities.Creature;
 import items.Item;
 import items.gear.armor.Armor;
@@ -6,13 +7,12 @@ import items.gear.armor.DefaultArmor;
 import items.gear.armor.NoArmor;
 import items.gear.tools.DefaultWeapon;
 import items.gear.tools.Weapon;
-import util.Position;
-import util.enums.Positions;
 import util.enums.Stats;
+import worldmap.Location;
 import util.enums.Die;
 
 public class Player extends Creature {
-    private Position location = new Position(2, 2);
+    private Location location;
     private Inventory inventory = new Inventory();
     private Equipment equipment;
 
@@ -32,26 +32,6 @@ public class Player extends Creature {
         damageBonus = 0;
         equipment = new Equipment(new DefaultArmor(), new DefaultWeapon());
     }
-
-    public Position getPos() {
-        return this.location;
-    }
-    public void setPos(Positions pos, int value) {
-        location.setPos(pos, value);
-    }
-    public void changePos(Positions pos, int amt) {
-        switch (pos) {
-            case X:
-                setPos(pos, location.x + amt);
-            break;
-            case Y:
-                setPos(pos, location.y + amt);
-            break;
-            default:
-
-            break;
-        }
-    }
         
     public int getLvl() {
         return lvl;
@@ -69,6 +49,13 @@ public class Player extends Creature {
     }
     public void changeXp(int amt) {
         setXp(xp + amt);
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public Inventory getInventory() {

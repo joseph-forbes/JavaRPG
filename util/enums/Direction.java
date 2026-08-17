@@ -1,5 +1,5 @@
 package util.enums;
 
-public enum Directions {
+public enum Direction {
     NORTH, SOUTH, EAST, WEST
 }

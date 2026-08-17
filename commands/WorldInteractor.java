@@ -7,7 +7,7 @@ import util.returnsutil.EntityFindReturn;
 import util.Formatter;
 
 import entities.Entity;
-import worldmap.MapTile;
+import worldmap.Location;
 
 public class WorldInteractor implements Command {
     protected String man;
@@ -17,7 +17,7 @@ public class WorldInteractor implements Command {
         return man;
     }
     public void execute(Engine game, String[] args) {
-        MapTile currentTile = game.getMap().getCurrentMapTile();
+        Location currentTile = game.getPlayer().getLocation();
         EntityFinder finder = new EntityFinder();
         EntityFindReturn output = finder.find(args, currentTile);
 

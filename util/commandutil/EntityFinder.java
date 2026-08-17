@@ -6,10 +6,10 @@ import player.Inventory;
 import entities.Entity;
 import items.Item;
 import util.returnsutil.EntityFindReturn;
-import worldmap.MapTile;
+import worldmap.Location;
 
 public class EntityFinder {
-    public EntityFindReturn find(String[] args, MapTile tile) {
+    public EntityFindReturn find(String[] args, Location tile) {
         Entity entity;
 
         String searchStr = "";
@@ -33,7 +33,7 @@ public class EntityFinder {
         
         ArrayList<Entity> potentialEntities = new ArrayList<>();
 
-        for(Entity e : tile.contents) {
+        for(Entity e : tile.getContents()) {
             if(e.getName().equalsIgnoreCase(searchStr)) {
                 // This is the thing you're after
                 potentialEntities.add(e);

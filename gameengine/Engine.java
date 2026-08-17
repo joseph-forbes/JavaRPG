@@ -15,7 +15,7 @@ import util.returnsutil.ManReturn;
 public class Engine {
     private Map<String, Command> commands = new HashMap<>();
     Player player;
-    WorldMap worldMap;
+    World world;
     List<ManReturn> manList = new ArrayList<>();
     public boolean isNSFW;
 
@@ -63,9 +63,14 @@ public class Engine {
     }
 
     public void start() {
-        render("Name your character: ");
-        player = new Player(keyboard.nextLine());
-        worldMap = new WorldMap(this);
+        String playerName;
+        do {
+            render("Name your character: ");
+            playerName = keyboard.nextLine();
+        } while(playerName.trim().length() == 0);
+
+        player = new Player(playerName.trim());
+        world = WorldBuilder.build(player);
 
         render("This is the beginning of the adventure of " + player.getName() + '.');
 
@@ -86,7 +91,7 @@ public class Engine {
         render();
         executeCommand(input);
 
-        worldMap.update();
+        world.update();
         player.update();
 
         if(player.isDead()) {
@@ -99,8 +104,8 @@ public class Engine {
     }
     
     
-    public WorldMap getMap() {
-        return worldMap;
+    public World getMap() {
+        return world;
     }
     public Player getPlayer() {
         return player;
