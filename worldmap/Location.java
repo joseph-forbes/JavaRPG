@@ -65,6 +65,9 @@ public class Location {
     public Map<Direction, LocationId> getExits() {
         return exits;
     }
+    public LocationId getExit(Direction dir) {
+        return exits.get(dir);
+    }
 
     public List<Entity> getContents() {
         return contents;

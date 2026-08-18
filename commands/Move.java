@@ -43,13 +43,14 @@ public class Move implements Command {
             }
             player = game.getPlayer();
 
-            Location currentLocation = player.getLocation();
-            if(currentLocation.getExits().containsKey(direction)) {
+            Location currentLocation = game.getMap().getCurrentLocation(player);
+            if(currentLocation.getExit(direction) != null) {
                 // Found location
                 LocationId newLocation = currentLocation.get(direction);
-                player.setLocation(game.getMap().get(newLocation));
+                player.setLocation(newLocation);
             } else { // Can't move that direction
                 game.render("You attempt to move " + direction.toString().toLowerCase() + " but cannot.");
+                
                 String validDirs = "";
                 for(Direction dir : currentLocation.getExits().keySet()) {
                     validDirs += dir.toString().toLowerCase();

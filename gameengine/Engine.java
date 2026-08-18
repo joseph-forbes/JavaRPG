@@ -70,7 +70,7 @@ public class Engine {
         } while(playerName.trim().length() == 0);
 
         player = new Player(playerName.trim());
-        world = WorldBuilder.build(player);
+        world = WorldBuilder.build(this);
 
         render("This is the beginning of the adventure of " + player.getName() + '.');
 
@@ -91,7 +91,7 @@ public class Engine {
         render();
         executeCommand(input);
 
-        world.update();
+        world.update(player);
         player.update();
 
         if(player.isDead()) {
@@ -123,5 +123,9 @@ public class Engine {
     }
     public void render() {
         System.out.println();
+    }
+
+    public Location getCurrentLocation() {
+        return world.getCurrentLocation(player);
     }
 }

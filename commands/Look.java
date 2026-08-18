@@ -37,8 +37,10 @@ public class Look extends WorldInteractor {
                         "      /  \\           ");
         } else if(searchQuery.equalsIgnoreCase("around")) {
             // "look around"
-            Location currentTile = game.getPlayer().getLocation();
-            for(Entity e : currentTile.getContents()) {
+            Location currentLocation = game.getCurrentLocation();
+            game.render(currentLocation.getDescription(game));
+            game.render();
+            for(Entity e : currentLocation.getContents()) {
                 game.render(e.getDescription());
             }
         } else {
