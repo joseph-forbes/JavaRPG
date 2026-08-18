@@ -48,16 +48,11 @@ public class Move implements Command {
                 // Found location
                 LocationId newLocation = currentLocation.get(direction);
                 player.setLocation(newLocation);
+                game.render("You move " + direction.toString().toLowerCase());
+                game.executeCommand("look around");
             } else { // Can't move that direction
                 game.render("You attempt to move " + direction.toString().toLowerCase() + " but cannot.");
-                
-                String validDirs = "";
-                for(Direction dir : currentLocation.getExits().keySet()) {
-                    validDirs += dir.toString().toLowerCase();
-                    validDirs += ", ";
-                }
-                if(validDirs.length() > 0) validDirs = validDirs.substring(0, validDirs.length() - 2); // remove final comma
-                game.render("You can currently move: " + validDirs + ".");
+                game.render(currentLocation.getValidDirs());
             }
         } else {
             game.render("Please provide a direction (north, south, east, or west).");
