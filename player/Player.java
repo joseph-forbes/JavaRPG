@@ -9,10 +9,11 @@ import items.gear.tools.DefaultWeapon;
 import items.gear.tools.Weapon;
 import util.enums.Stats;
 import worldmap.Location;
+import util.LocationId;
 import util.enums.Die;
 
 public class Player extends Creature {
-    private Location location;
+    private LocationId location;
     private Inventory inventory = new Inventory();
     private Equipment equipment;
 
@@ -51,10 +52,10 @@ public class Player extends Creature {
         setXp(xp + amt);
     }
 
-    public Location getLocation() {
+    public LocationId getLocation() {
         return location;
     }
-    public void setLocation(Location location) {
+    public void setLocation(LocationId location) {
         this.location = location;
     }
 

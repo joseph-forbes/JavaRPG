@@ -5,6 +5,8 @@ import util.LocationId;
 import java.util.HashMap;
 import java.util.Map;
 
+import player.Player;
+
 
 public class World {
     Map<LocationId, Location> locations;
@@ -13,7 +15,7 @@ public class World {
         locations = new HashMap<LocationId, Location>();
     }
 
-    public void update() {
+    public void update(Player player) {
         for(Location location : locations.values()) {
             location.update();
         }
@@ -23,5 +25,16 @@ public class World {
     }
     public Location get(LocationId id) {
         return locations.get(id);
+    }
+    public Location get(String id) {
+        for(LocationId key : locations.keySet()) {
+            if(key.equals(id)) {
+                return locations.get(key);
+            }
+        }
+        throw new NullPointerException("Could not find location: \"" + id + "\".");
+    }
+    public Location getCurrentLocation(Player player) {
+        return get(player.getLocation());
     }
 }

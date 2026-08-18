@@ -17,7 +17,7 @@ public class WorldInteractor implements Command {
         return man;
     }
     public void execute(Engine game, String[] args) {
-        Location currentTile = game.getPlayer().getLocation();
+        Location currentTile = game.getCurrentLocation();
         EntityFinder finder = new EntityFinder();
         EntityFindReturn output = finder.find(args, currentTile);
 
