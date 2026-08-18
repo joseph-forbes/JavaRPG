@@ -8,6 +8,10 @@ import items.gear.armor.NoArmor;
 import items.gear.tools.DefaultWeapon;
 import items.gear.tools.Weapon;
 import util.enums.Stats;
+<<<<<<< HEAD
+=======
+import worldmap.Location;
+>>>>>>> eb938c9cf46a5882f5f5dcfc588d11db6f36e936
 import util.LocationId;
 import util.enums.Die;
 
