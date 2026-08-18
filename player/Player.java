@@ -39,6 +39,9 @@ public class Player extends Creature {
     public int getXp() {
         return xp;
     }
+    public int getXpToNextLevel() {
+        return xpToNextLvl;
+    }
     public void setXp(int amt) {
         xp = amt;
         if(xp > xpToNextLvl) {

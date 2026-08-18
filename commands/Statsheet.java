@@ -11,12 +11,14 @@ public class Statsheet implements Command {
         Player player = game.getPlayer();
 
         game.render("Name: " + player.getName());
+        game.render("Level: " + player.getLvl());
         game.render("HP: " + player.getStat(Stats.HP));
+        game.render("XP: " + player.getXp() + " / " + player.getXpToNextLevel());
 
         game.render();
         game.render("Weapon: " + player.getWeapon().getName());
-        game.render("Attack damage: " + player.getStat(Stats.DAMAGE));
-        game.render("Attack accuracy bonus: " + player.getStat(Stats.DAMAGE_BONUS));
+        game.render("Attack Damage: " + player.getStat(Stats.DAMAGE));
+        game.render("Attack Accuracy Bonus: " + player.getStat(Stats.DAMAGE_BONUS));
         
         game.render();
         game.render("Armor: " + player.getArmor().getName());
