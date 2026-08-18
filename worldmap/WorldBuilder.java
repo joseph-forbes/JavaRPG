@@ -10,7 +10,7 @@ public class WorldBuilder {
 
         Location home = new Location("home");
 
-        home.setEntryText("This is your home. It is very homely.");
+        home.setDefaultDescription("This is your home. It is very homely.");
 
         home.addEntity(new Corndog());
         home.addEntity(new Entity("Pickle statue"));
