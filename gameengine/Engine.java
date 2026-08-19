@@ -10,14 +10,16 @@ import player.Player;
 import worldmap.*;
 import commands.*;
 import util.enums.Stats;
+import util.render.GameOutput;
 import util.returnsutil.ManReturn;
 
 public class Engine {
     private Map<String, Command> commands = new HashMap<>();
-    Player player;
-    World world;
-    List<ManReturn> manList = new ArrayList<>();
+    private Player player;
+    private World world;
+    private List<ManReturn> manList = new ArrayList<>();
     public boolean isNSFW;
+    private GameOutput output;
 
     Scanner keyboard = new Scanner(System.in);
 
@@ -68,7 +70,9 @@ public class Engine {
             render("Name your character: ");
             playerName = keyboard.nextLine();
         } while(playerName.trim().length() == 0);
-
+        initialize(playerName);
+    }
+    public void initialize(String playerName) {
         player = new Player(playerName.trim());
         world = WorldBuilder.build(this);
 
@@ -89,6 +93,11 @@ public class Engine {
         System.out.print("What do you want to do next? ");
         String input = keyboard.nextLine();
         render();
+
+        executeTurn(input);
+        
+    }
+    public void executeTurn(String input) {
         executeCommand(input);
 
         world.update(this);
@@ -100,9 +109,7 @@ public class Engine {
         } else {
             render("\nThe adventure of " + player.getName() + " continues. HP: " + player.getStat(Stats.HP));
         }
-        
     }
-    
     
     public World getMap() {
         return world;
@@ -119,10 +126,10 @@ public class Engine {
     }
 
     public void render(String text) {
-        System.out.println(text);
+        output.render(text);
     }
     public void render() {
-        System.out.println();
+        output.render("");
     }
 
     public Location getCurrentLocation() {
