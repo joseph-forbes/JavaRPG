@@ -5,6 +5,7 @@ import util.LocationId;
 import java.util.HashMap;
 import java.util.Map;
 
+import gameengine.Engine;
 import player.Player;
 
 
@@ -15,9 +16,9 @@ public class World {
         locations = new HashMap<LocationId, Location>();
     }
 
-    public void update(Player player) {
+    public void update(Engine game) {
         for(Location location : locations.values()) {
-            location.update();
+            location.update(game);
         }
     }
     public void add(LocationId id, Location location) {
