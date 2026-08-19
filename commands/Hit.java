@@ -23,7 +23,7 @@ public class Hit extends WorldInteractor {
             // Combat
 
             Creature enemy = (Creature) entity;
-            player.hit(enemy);
+            player.hit(enemy, game);
         } else {
             // Not a creature
             game.render("The " + entity.getName().toLowerCase() + " seems unimpressed by your pathetic flailing.");

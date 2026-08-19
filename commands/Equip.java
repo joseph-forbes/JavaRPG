@@ -6,7 +6,6 @@ import items.Item;
 import items.gear.armor.Armor;
 import items.gear.tools.Bow;
 import items.gear.tools.Weapon;
-import player.Player;
 
 public class Equip extends Use {
     public String getMan() {
