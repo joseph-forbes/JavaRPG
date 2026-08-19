@@ -15,7 +15,7 @@ public class SeeInventory implements Command {
         if(inventory.contents.size() > 0) {
             game.render("You check your inventory. Inside, you see: ");
             for(Item item : inventory.contents) {
-                System.out.println(
+                game.render(
                     "You have a" + Formatter.needsAn(item.toString()) + item.getName().toLowerCase() +
                     ". It " + item.toString().toLowerCase()
             );
