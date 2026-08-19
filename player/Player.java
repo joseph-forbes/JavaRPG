@@ -1,6 +1,7 @@
 package player;
 
 import entities.Creature;
+import gameengine.Engine;
 import items.Item;
 import items.gear.armor.Armor;
 import items.gear.armor.DefaultArmor;
@@ -97,16 +98,16 @@ public class Player extends Creature {
     }
 
     @Override
-    public void updateLogic() {
-        inventory.update();
+    public void updateLogic(Engine game) {
+        inventory.update(game);
         if(equipment.getArmor() instanceof NoArmor) {
             hp--;
-            System.out.println("\nApparently clothes help warm you up. You take 1 cold damage.");
+            game.render("\nApparently clothes help warm you up. You take 1 cold damage.");
         }
     }
 
     @Override
-    public void hit(Creature creature) {
+    public void hit(Creature creature, Engine game) {
         // Update stats
         damage = equipment.getWeapon().attack(this);
         
@@ -120,23 +121,24 @@ public class Player extends Creature {
         if(roll + damageBonus >= creature.getStat(Stats.AC)) {
             creature.takeHit(damage);
             if(roll == 20) {
-                System.out.println("A critical hit!");
+                game.render("A critical hit!");
                 creature.takeHit(damage);
-                System.out.println("You hit the " + creature.getName() + " for " + damage * 2 + " damage.");
+                game.render("You hit the " + creature.getName() + " for " + damage * 2 + " damage.");
                 if(creature.isDead()) {
-                    System.out.println("The " + creature.getName() + " died!");
+                    game.render("The " + creature.getName() + " died!");
                 }
             } else {
-                System.out.println("You hit the " + creature.getName() + " for " + damage + " damage.");
+                game.render("You hit the " + creature.getName() + " for " + damage + " damage.");
                 if(creature.isDead()) {
-                    System.out.println("The " + creature.getName() + " died!");
+                    game.render("The " + creature.getName() + " died!");
                 }
             }
         } else if(roll != 1) {
-            System.out.println("You missed.");
+            game.render("You missed.");
         } else {
-            System.out.println("A critical failure :(");
+            game.render("A critical failure :(");
             hp -= damage;
-            System.out.println("You hit yourself for " + damage + "damage. You have " + hp + " hp remaining.");
-        }    }
+            game.render("You hit yourself for " + damage + "damage. You have " + hp + " hp remaining.");
+        }
+        }
 }

@@ -3,6 +3,7 @@ package player;
 import java.util.ArrayList;
 import java.util.List;
 
+import gameengine.Engine;
 import items.Item;
 
 public class Inventory {
@@ -24,10 +25,10 @@ public class Inventory {
         }
     }
 
-    public void update() {
+    public void update(Engine game) {
         for(int i=contents.size() - 1; i>=0; i--) {
             Item item = contents.get(i);
-            item.update(); // Most item updates do basically nothing due to just sitting in your inventory but this may have an effect later
+            item.update(game); // Most item updates do basically nothing due to just sitting in your inventory but this may have an effect later
         }
         collectGarbage();
     }

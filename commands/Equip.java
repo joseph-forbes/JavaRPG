@@ -15,25 +15,24 @@ public class Equip extends Use {
 
     @Override
     protected void interact(Engine game, Item item) {
-        Player player = game.getPlayer();
         if(item instanceof Armor) {
-            equipArmor(player, (Armor) item);
+            equipArmor(game, (Armor) item);
         } else if(item instanceof Weapon) {
-            equipWeapon(player, (Weapon) item);
+            equipWeapon(game, (Weapon) item);
         } else {
             game.render("You cannot equip a" + Formatter.needsAn(item.getName()) + item.getName().toLowerCase() + ".");
         }
     }
-    protected void equipArmor(Player player, Armor armor) {
-        player.setEquipment((Armor) armor);
-        System.out.println("You don the " + armor.getName().toLowerCase() + " and now look very cool");
+    protected void equipArmor(Engine game, Armor armor) {
+        game.getPlayer().setEquipment((Armor) armor);
+        game.render("You don the " + armor.getName().toLowerCase() + " and now look very cool");
     }
-    protected void equipWeapon(Player player, Weapon item) {
-        player.setEquipment((Weapon) item);
+    protected void equipWeapon(Engine game, Weapon item) {
+        game.getPlayer().setEquipment((Weapon) item);
             if(item instanceof Bow) {
-                System.out.println("You equip the " + item.getName().toLowerCase() + ". Do you have a permit to shoot that?");
+                game.render("You equip the " + item.getName().toLowerCase() + ". Do you have a permit to shoot that?");
             } else {
-                System.out.println("You equip the " + item.getName().toLowerCase() + " and now look kinda funny.");
+                game.render("You equip the " + item.getName().toLowerCase() + " and now look kinda funny.");
             }
     }
 }

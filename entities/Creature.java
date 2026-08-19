@@ -1,5 +1,6 @@
 package entities;
 
+import gameengine.Engine;
 import util.enums.Die;
 import util.enums.Stats;
 
@@ -19,24 +20,24 @@ public class Creature extends Entity {
     }
     public Creature() {}
 
-    public void hit(Creature creature) {
+    public void hit(Creature creature, Engine game) {
         // roll d20
         int roll = Die.D20.roll();
         if(roll + damageBonus >= creature.getStat(Stats.AC)) {
             creature.takeHit(damage);
             if(roll == 20) {
-                System.out.println("A critical hit!");
+                game.render("A critical hit!");
                 creature.takeHit(damage);
-                System.out.println(name + " hit " + creature.name + " for " + damage * 2 + " damage.");
+                game.render(name + " hit " + creature.name + " for " + damage * 2 + " damage.");
             } else {
-                System.out.println(name + " hit " + creature.name + " for " + damage + " damage.");
+                game.render(name + " hit " + creature.name + " for " + damage + " damage.");
             }
         } else if(roll != 1) {
-            System.out.println(name + " missed.");
+            game.render(name + " missed.");
         } else {
-            System.out.println("A critical failure!");
+            game.render("A critical failure!");
             hp -= damage;
-            System.out.println(name + " hit itself for " + damage + " damage. " + name + " has " + creature.getStat(Stats.HP) + " hp remaining");
+            game.render(name + " hit itself for " + damage + " damage. " + name + " has " + creature.getStat(Stats.HP) + " hp remaining");
         }
     }
 

@@ -46,11 +46,11 @@ public class Entity {
         return detailedDescription;
     }
 
-    public void update() {
-        updateLogic();
+    public void update(Engine game) {
+        updateLogic(game);
         updateRender();
     }
-    protected void updateLogic() {
+    protected void updateLogic(Engine game) {
 
     }
     protected void updateRender() {

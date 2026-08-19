@@ -33,9 +33,9 @@ public class Location {
         contents = new ArrayList<Entity>();
     }
 
-    public void update() {
+    public void update(Engine game) {
         for(Entity entity : contents) {
-            entity.update();
+            entity.update(game);
         }
         collectGarbage();
     }

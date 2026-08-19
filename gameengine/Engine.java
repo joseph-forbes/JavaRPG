@@ -91,8 +91,8 @@ public class Engine {
         render();
         executeCommand(input);
 
-        world.update(player);
-        player.update();
+        world.update(this);
+        player.update(this);
 
         if(player.isDead()) {
             render("You died.");
