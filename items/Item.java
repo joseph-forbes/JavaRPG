@@ -36,6 +36,12 @@ public class Item extends Entity {
     }
 
     @Override
+    public void interact(Engine game) {
+        // If you are interacting with an item you probably want to pick it up
+        pickup(game.getPlayer().getInventory());
+        game.render("You pick the " + name + " up.");
+    }
+    @Override
     protected void setDescription() {
         description = "You see a" + Formatter.needsAn(name) + name.toLowerCase() + " lying on the ground.";
         detailedDescription = "The " + name + " is lying on the ground. It is small enough to fit in your pocket.";

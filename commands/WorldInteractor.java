@@ -22,13 +22,13 @@ public class WorldInteractor implements Command {
         EntityFindReturn output = finder.find(args, currentTile);
 
         if(output.entity instanceof Entity) {
-            interact(game, output);
+            interact(game, output.entity);
         } else {
             handleExceptions(game, output);
         }
     }
 
-    protected void interact(Engine game, EntityFindReturn output) {
+    protected void interact(Engine game, Entity entity) {
 
     }
 
@@ -51,9 +51,11 @@ public class WorldInteractor implements Command {
         game.render("Please provide a creature, i.e. " + commandName + " goblin.");
     }
     protected void handleNoSuchEntity(Engine game, String searchQuery) {
-        game.render("Could not find a" + Formatter.needsAn(searchQuery) + (searchQuery.toLowerCase()) + 
-                ". Check your spelling and try again."
-            );
+        game.render(
+            "Could not find a" + 
+            Formatter.needsAn(searchQuery) + (searchQuery.toLowerCase()) + 
+            ". Check your spelling and try again."
+        );
     }
     protected void handleDefaultError(Engine game, String searchQuery) {
         game.render("An unknown error occured. Please try again.");

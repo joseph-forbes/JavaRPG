@@ -3,7 +3,6 @@ package commands;
 import entities.Entity;
 import gameengine.Engine;
 import items.Item;
-import util.returnsutil.EntityFindReturn;
 import player.Inventory;
 
 public class Pickup extends WorldInteractor {
@@ -13,8 +12,7 @@ public class Pickup extends WorldInteractor {
     }
 
     @Override
-    protected void interact(Engine game, EntityFindReturn output) {
-        Entity entity = output.entity;
+    protected void interact(Engine game, Entity entity) {
         if(entity instanceof Item) {
             // this is an item
             Item item = (Item) entity;
@@ -24,7 +22,7 @@ public class Pickup extends WorldInteractor {
             game.render("You pick the " + item.getName().toLowerCase() + " up.");
         } else {
             // this does not spark item
-            game.render("The " + output.searchStr.toLowerCase() + " is too big to fit in your pocket.");
+            game.render("The " + entity.getName().toLowerCase() + " is too big to fit in your pocket.");
         }
     }
 }

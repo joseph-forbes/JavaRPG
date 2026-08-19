@@ -1,5 +1,6 @@
 package entities;
 
+import gameengine.Engine;
 import util.LocationId;
 
 public class House extends Entity {
@@ -11,9 +12,11 @@ public class House extends Entity {
         super(name, detailedDescription, description);
         this.id = id;
     }
-
-    public LocationId enter() {
-        return id;
+    @Override
+    public void interact(Engine game) {
+        game.getPlayer().setLocation(id);
+        game.render("You enter the " + name.toLowerCase());
+        game.executeCommand("look around");
     }
 
 }

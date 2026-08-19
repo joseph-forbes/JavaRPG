@@ -1,11 +1,14 @@
 package entities;
 
+import gameengine.Engine;
+
 public class Entity {
 
     protected boolean isEnemy = false;
     protected String description;
     protected String detailedDescription;
     protected String name = "thing";
+    protected String interactionText;
     private String oDescription;
     private String oDetailedDescription;
 
@@ -19,9 +22,13 @@ public class Entity {
         this(name, detailedDescription, "You see a " + name.toLowerCase() + ".");
     }
     public Entity(String name, String detailedDescription, String description) {
+        this(name, detailedDescription, description, "It doesn't do anything.");
+    }
+    public Entity(String name, String detailedDescription, String description, String interactionText) {
         this.name = name;
         oDescription = this.description = description;
         oDetailedDescription = this.detailedDescription = detailedDescription;
+        this.interactionText = interactionText;
         setDescription();
     }
 
@@ -43,12 +50,14 @@ public class Entity {
         updateLogic();
         updateRender();
     }
-
     protected void updateLogic() {
 
     }
     protected void updateRender() {
         setDescription();
+    }
+    public void interact(Engine game) {
+        game.render(interactionText);
     }
 
     public boolean isDead() {

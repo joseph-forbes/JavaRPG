@@ -2,7 +2,6 @@ package commands;
 import entities.Entity;
 import gameengine.Engine;
 import util.Formatter;
-import util.returnsutil.EntityFindReturn;
 import worldmap.*;
 
 public class Look extends WorldInteractor {
@@ -14,9 +13,9 @@ public class Look extends WorldInteractor {
     }
 
     @Override
-    protected void interact(Engine game, EntityFindReturn output) {
+    protected void interact(Engine game, Entity entity) {
         // Good behavior
-        System.out.println(output.entity);
+        game.render(entity.toString());
     }
     
     @Override

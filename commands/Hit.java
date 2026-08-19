@@ -4,7 +4,6 @@ import entities.Creature;
 import entities.Entity;
 import gameengine.Engine;
 import player.Player;
-import util.returnsutil.EntityFindReturn;
 
 public class Hit extends WorldInteractor {
     
@@ -18,9 +17,8 @@ public class Hit extends WorldInteractor {
 
     
     @Override
-    protected void interact(Engine game, EntityFindReturn output) {
+    protected void interact(Engine game, Entity entity) {
         player = game.getPlayer();
-        Entity entity = output.entity;
         if(entity instanceof Creature) {
             // Combat
 
@@ -28,7 +26,7 @@ public class Hit extends WorldInteractor {
             player.hit(enemy);
         } else {
             // Not a creature
-            game.render("The " + output.searchStr + " seems unimpressed by your pathetic flailing.");
+            game.render("The " + entity.getName().toLowerCase() + " seems unimpressed by your pathetic flailing.");
         }
     }
 }

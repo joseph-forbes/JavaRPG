@@ -13,6 +13,7 @@ public class Creature extends Entity {
         this.damageBonus = damageBonus;
         this.ac = ac;
         this.xpOnDeath = xpOnDeath;
+        interactionText = "The " + name + " doesn't seem to be much of a talker.";
 
         setDescription();
     }
