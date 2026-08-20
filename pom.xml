@@ -8,8 +8,8 @@
 		<version>4.1.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>java</groupId>
-	<artifactId>rest-service</artifactId>
+	<groupId>com.jforbes</groupId>
+	<artifactId>JavaRPG</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name/>
 	<description/>
