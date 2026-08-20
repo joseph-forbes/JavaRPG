@@ -2,6 +2,7 @@ body {
     background-color: #121212;
     font-family: 'Press Start 2P', monospace;
     color: aliceblue;
+    overflow: hidden;
 }
 #content {
     font-size: 24px;
@@ -10,6 +11,8 @@ body {
     height: 800px;
     padding: 10px;
     margin: 10px;
+    overflow-x: wrap;
+    overflow: scroll;
 }
 #textInput {
     background-color: #121212;

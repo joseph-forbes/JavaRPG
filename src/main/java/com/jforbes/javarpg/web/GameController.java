@@ -25,7 +25,18 @@ public class GameController {
     public TurnResult getGame() {
         return new TurnResult(
             output.getMessages(),
-            new GameState(game.isInitialized(), false)
+            new GameState(game.isInitialized(), game.isGameOver())
+        );
+    }
+
+    @PostMapping("/restart") 
+    public TurnResult resetGame() {
+        game.reset();
+        output.clear();
+
+        return new TurnResult(
+            output.getMessages(),
+            new GameState(false, false)
         );
     }
 
@@ -47,11 +58,12 @@ public class GameController {
 
         output.clear();
 
+        System.out.println(request.message());
         game.executeTurn(request.message());
 
         return new TurnResult(
             output.getMessages(),
-            new GameState(true, false)
+            new GameState(game.isInitialized(), game.isGameOver())
         );
     }
 }

@@ -20,6 +20,7 @@ public class Engine {
     private World world;
     private List<ManReturn> manList = new ArrayList<>();
     public boolean isNSFW;
+    private boolean isGameOver;
     private final GameOutput output;
 
     Scanner keyboard = new Scanner(System.in);
@@ -30,6 +31,7 @@ public class Engine {
     }
     public Engine(GameOutput output) {
         isNSFW = false;
+        isGameOver = false;
         this.output = output;
         registerCommands();
     }
@@ -88,8 +90,7 @@ public class Engine {
 
         render("\nType \"help\" for a list of commands.");
 
-        boolean gameRunning = true;
-        while(gameRunning) {
+        while(!isGameOver) {
             update();
         }
     }
@@ -103,15 +104,18 @@ public class Engine {
         
     }
     public void executeTurn(String input) {
-        executeCommand(input);
+        if(!isGameOver)
+            executeCommand(input);
 
-        world.update(this);
-        player.update(this);
+        if(!isGameOver)
+            world.update(this);
+        if(!isGameOver)
+            player.update(this);
 
         if(player.isDead()) {
             render("You died.");
             end();
-        } else {
+        } else if(!isGameOver) {
             render("\nThe adventure of " + player.getName() + " continues. HP: " + player.getStat(Stats.HP));
         }
     }
@@ -124,7 +128,7 @@ public class Engine {
     }
     public void end() {
         render("Thanks for playing!");
-        System.exit(0);
+        isGameOver = true;
     }
     public List<ManReturn> getManList() {
         return manList;
@@ -134,7 +138,7 @@ public class Engine {
         output.render(text);
     }
     public void render() {
-        output.render("");
+        output.render();
     }
 
     public Location getCurrentLocation() {
@@ -144,6 +148,10 @@ public class Engine {
         return player != null;
     }
     public boolean isGameOver() {
-        return player.getStat(Stats.HP) <= 0;
+        return isGameOver;
+    }
+    public void reset() {
+        isGameOver = false;
+        player = null;
     }
 }

@@ -5,4 +5,9 @@ public class TerminalOutput implements GameOutput {
     public void render(String text) {
         System.out.println(text);
     }
+
+    @Override
+    public void render() {
+        System.out.println();
+    }
 }

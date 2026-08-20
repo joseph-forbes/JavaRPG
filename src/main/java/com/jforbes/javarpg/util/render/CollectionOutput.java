@@ -19,4 +19,9 @@ public class CollectionOutput implements GameOutput {
     public void clear() {
         messages.clear();
     }
+
+    @Override
+    public void render() {
+        messages.add("<br>");
+    }
 }
