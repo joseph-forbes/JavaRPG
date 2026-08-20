@@ -1,4 +1,4 @@
-package com.jforbes.javarpg.util.render;
+package com.jforbes.javarpg.gameengine.render;
 
 public class TerminalOutput implements GameOutput {
     @Override
