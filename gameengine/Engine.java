@@ -10,7 +10,7 @@ import player.Player;
 import worldmap.*;
 import commands.*;
 import util.enums.Stats;
-import util.render.GameOutput;
+import util.render.*;
 import util.returnsutil.ManReturn;
 
 public class Engine {
@@ -26,6 +26,7 @@ public class Engine {
 
     public Engine() {
         isNSFW = false;
+        output = new TerminalOutput();
         registerCommands();
     }
 
