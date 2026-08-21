@@ -4,7 +4,7 @@ const input = document.createElement("input");
 window.onload = () => {
     input.id = "textInput";
     input.autofocus = true;
-    window.addEventListener("keydown", () => input.focus())
+    window.addEventListener("keydown", () => input.focus());
     initialize();
 };
 
@@ -54,7 +54,7 @@ async function start() {
 function createInput() {
     body.appendChild(input);
     input.hidden = false;
-    body.scrollTop = body.scrollHeight
+    input.focus();
 }
 
 function inputEntered() {
@@ -77,6 +77,7 @@ async function gameStep(gameState) {
     } else {
         input.remove();
     }
+    body.scrollTop = body.scrollHeight;
 }
 async function sendMessage() {
     var response = await fetch("api/game/command", {
