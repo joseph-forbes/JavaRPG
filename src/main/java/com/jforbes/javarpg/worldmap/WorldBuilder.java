@@ -44,6 +44,22 @@ public class WorldBuilder {
         Location village = new Location("village");
         village.setDefaultDescription("A bustling village full of all your friends and family.");
 
+        NPC bum = new NPC(
+            "Steve", 
+            "Steve is your good friend from high school. " + 
+            "He lives in a hut down the street.", 
+            "You see Steve"
+        );
+        bum.add("Hey " + player.getName() + "! How's it going?");
+        bum.add("What, don't recognize your old buddy Steve?");
+        bum.add("Geeze man, what's your deal? Talk to me, g*sh diggity!");
+        bum.add("It's like you're a player in a video game with no ability to " + 
+        "communicate beyond a fairly restrictive set of commands or somethin'.");
+        bum.add("Fine. If you're gonna stare at me like a vide game character, I'll just restart my talking tree like an NPC! " + 
+        "Let's see how you like it.");
+
+        village.addEntity(bum);
+
         Location home = buildHome();
         House homeEntity = new House(
             "home", 
