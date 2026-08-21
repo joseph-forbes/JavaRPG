@@ -3,9 +3,9 @@ import java.util.Map;
 import java.util.Scanner;
 
 import com.jforbes.javarpg.commands.*;
+import com.jforbes.javarpg.gameengine.render.*;
 import com.jforbes.javarpg.player.Player;
 import com.jforbes.javarpg.util.enums.Stats;
-import com.jforbes.javarpg.util.render.*;
 import com.jforbes.javarpg.util.returnsutil.ManReturn;
 import com.jforbes.javarpg.worldmap.*;
 

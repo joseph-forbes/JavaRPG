@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jforbes.javarpg.gameengine.Engine;
-import com.jforbes.javarpg.util.render.CollectionOutput;
+import com.jforbes.javarpg.gameengine.render.CollectionOutput;
 
 @RestController
 @RequestMapping("/api/game")
