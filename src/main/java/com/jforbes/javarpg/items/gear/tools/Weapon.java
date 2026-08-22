@@ -21,7 +21,7 @@ public class Weapon extends Item {
 
         function = "Deals " + damage + " attack damage and adds a +" + damageBonus + " bonus to accuracy rolls.";
 
-        setDescription();
+        updateDescription();
     }
     
     public int getDamage() {

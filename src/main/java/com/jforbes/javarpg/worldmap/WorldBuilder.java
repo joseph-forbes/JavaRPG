@@ -2,7 +2,9 @@ package com.jforbes.javarpg.worldmap;
 
 import com.jforbes.javarpg.entities.*;
 import com.jforbes.javarpg.gameengine.Engine;
+import com.jforbes.javarpg.items.Item;
 import com.jforbes.javarpg.items.ammo.*;
+import com.jforbes.javarpg.items.gear.armor.Armor;
 import com.jforbes.javarpg.player.Player;
 import com.jforbes.javarpg.util.WorldFinder;
 import com.jforbes.javarpg.util.enums.Direction;
@@ -38,16 +40,47 @@ public class WorldBuilder {
 
         return home;
     }
+    private static Location buildSteveHome() {
+        Location steveHome = new Location("steve-hut");
+        steveHome.setDefaultDescription(
+            "Steve's hut is a small tent. " + 
+            "He has a cozy hay bed, a stuffy clothes line just outside, " + 
+            "and a stuffed troll head hanging on his wall."
+        );
+        
+        Enemy troll = new Enemy("Troll", 30, 18, 6, 15, 130);
+        steveHome.addEntity(troll);
+        steveHome.addDescription(
+            "Steve's hut is a small tent. " + 
+            "His new roommate, Jeff, appears to have left a mess on the floor.", 
+            game -> steveHome.getContents().contains(troll)
+        );
+        steveHome.addEntity(new Entity(
+            "Blood", 
+            "The blood appears to be fresh. " + 
+            "Upon close inspection it also appears to be on the troll's claws and teeth", 
+            "You see blood spattered on the walls")
+        );
+        Item skull = new Armor("Skull", 1);
+        skull.setDetailedDescription("The skull appears to be from a human. It is on top of a pile of torn up bones and the tattered remains of a blue leather tunic.");
+        steveHome.addEntity(skull);
+
+        System.out.println(steveHome.getContents());
+
+        return steveHome;
+    }
     private static Location buildVillage(Engine game, World world) {
         Player player = game.getPlayer();
 
         Location village = new Location("village");
         village.setDefaultDescription("A bustling village full of all your friends and family.");
 
+        ////////// STEVE //////////
+        
         NPC bum = new NPC(
             "Steve", 
             "Steve is your good friend from high school. " + 
-            "He lives in a hut down the street.", 
+            "He lives in a hut down the street and is the village's laundry attendand and local kook.", 
             "You see Steve"
         );
         bum.add("Hey " + player.getName() + "! How's it going?");
@@ -60,6 +93,33 @@ public class WorldBuilder {
 
         village.addEntity(bum);
 
+        ////////// STEVE'S HOME //////////
+        
+        Location steveHome = buildSteveHome();
+        House steveHouse = new House(
+            "Steve's hut",
+
+            "Steve's hut is a fairly run-down tent with " + 
+            "a busy clothes line hanging out front. \n" + 
+            "Steve recently got a new roommate, Jeff. " + 
+            "You don't have the heart to tell him, " + 
+            "but You don't think Jeff is a good fit " + 
+            "for the village because there is a giant mess in his front yard.",
+            
+            "You can see Steve's hut down the street.",
+            steveHome.getLocationId()
+        );
+        village.addEntity(steveHouse);
+        // Steve's hut does not have much in the way of walls
+        steveHome.connect(Direction.NORTH, village.getLocationId());
+        steveHome.connect(Direction.SOUTH, village.getLocationId());
+        steveHome.connect(Direction.EAST, village.getLocationId());
+        steveHome.connect(Direction.WEST, village.getLocationId());
+
+        world.add(steveHome.getLocationId(), steveHome);
+
+        ////////// HOME //////////
+
         Location home = buildHome();
         House homeEntity = new House(
             "home", 
@@ -71,10 +131,10 @@ public class WorldBuilder {
         player.setLocation(home.getLocationId());
         world.add(home.getLocationId(), home);
 
-        //village.connect(Direction.NORTH, home.getLocationId());
-        home.connect(Direction.SOUTH, village.getLocationId());
-
+        home.connect(Direction.SOUTH, village.getLocationId());        
 
         return village;
     }
+
+
 }

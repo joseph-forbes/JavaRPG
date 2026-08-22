@@ -34,7 +34,7 @@ public class EntityFinder {
         ArrayList<Entity> potentialEntities = new ArrayList<>();
 
         for(Entity e : tile.getContents()) {
-            if(e.getName().equalsIgnoreCase(searchStr)) {
+            if(e.getName().replaceAll("[^a-zA-Z0-9 ]", "").equalsIgnoreCase(searchStr.replaceAll("[^a-zA-Z0-9 ]", ""))) {
                 // This is the thing you're after
                 potentialEntities.add(e);
             }
@@ -85,7 +85,7 @@ public class EntityFinder {
         ArrayList<Item> potentialItems = new ArrayList<>();
 
         for(Item i : inventory.contents) {
-            if(i.getName().equalsIgnoreCase(searchStr)) {
+            if(i.getName().replaceAll("[^a-zA-Z0-9 ]", "").equalsIgnoreCase(searchStr.replaceAll("[^a-zA-Z0-9 ]", ""))) {
                 // This is the thing you're after
                 potentialItems.add(i);
             }

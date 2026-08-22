@@ -28,7 +28,9 @@ public class Item extends Entity {
     public Item(String name, String function) {
         this.name = name;
         this.function = function;
-        setDescription();
+        oDescription = "You see a" + Formatter.needsAn(name) + name.toLowerCase() + " lying on the ground.";
+        oDetailedDescription = "The " + name + " is lying on the ground. It is small enough to fit in your pocket.";
+        updateDescription();
     }
 
     public void use(Engine game) {
@@ -40,11 +42,6 @@ public class Item extends Entity {
         // If you are interacting with an item you probably want to pick it up
         pickup(game.getPlayer().getInventory());
         game.render("You pick the " + name + " up.");
-    }
-    @Override
-    protected void setDescription() {
-        description = "You see a" + Formatter.needsAn(name) + name.toLowerCase() + " lying on the ground.";
-        detailedDescription = "The " + name + " is lying on the ground. It is small enough to fit in your pocket.";
     }
     protected void updateFunction() {
         this.function = "Just kind of takes up inventory space.";

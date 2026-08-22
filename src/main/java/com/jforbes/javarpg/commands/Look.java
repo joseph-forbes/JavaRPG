@@ -15,7 +15,7 @@ public class Look extends WorldInteractor {
     @Override
     protected void interact(Engine game, Entity entity) {
         // Good behavior
-        game.render(entity.toString());
+        game.render(entity.getDetailedDescription());
     }
     
     @Override

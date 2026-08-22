@@ -15,7 +15,7 @@ public class House extends Entity {
     @Override
     public void interact(Engine game) {
         game.getPlayer().setLocation(id);
-        game.render("You enter the " + name.toLowerCase());
+        game.render("You enter " + name.toLowerCase());
         game.executeCommand("look around");
     }
 
