@@ -1,6 +1,9 @@
 package com.jforbes.javarpg.player;
 
 import com.jforbes.javarpg.entities.Creature;
+import com.jforbes.javarpg.events.EventSystem;
+import com.jforbes.javarpg.events.worldevents.LocationEnteredEvent;
+import com.jforbes.javarpg.events.worldevents.LocationExitedEvent;
 import com.jforbes.javarpg.gameengine.Engine;
 import com.jforbes.javarpg.items.Item;
 import com.jforbes.javarpg.items.gear.armor.Armor;
@@ -11,6 +14,7 @@ import com.jforbes.javarpg.items.gear.tools.Weapon;
 import com.jforbes.javarpg.util.LocationId;
 import com.jforbes.javarpg.util.enums.Die;
 import com.jforbes.javarpg.util.enums.Stats;
+import com.jforbes.javarpg.worldmap.Location;
 
 public class Player extends Creature {
     private LocationId location;
@@ -58,8 +62,11 @@ public class Player extends Creature {
     public LocationId getLocation() {
         return location;
     }
-    public void setLocation(LocationId location) {
+    public void setLocation(LocationId location, EventSystem events) {
+        LocationId currentLocation = this.location;
         this.location = location;
+        events.publish(new LocationExitedEvent(currentLocation, location), null);
+        events.publish(new LocationEnteredEvent(currentLocation, location), null);
     }
 
     public Inventory getInventory() {
