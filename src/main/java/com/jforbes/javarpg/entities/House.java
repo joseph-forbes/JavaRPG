@@ -5,6 +5,9 @@ import com.jforbes.javarpg.util.LocationId;
 
 public class House extends Entity {
     private final LocationId id;
+    public House(String name, String detailedDescription) {
+        this(name, detailedDescription, "You see " + name + ".");
+    }
     public House(String name, String detailedDescription, String description) {
         this(name, detailedDescription, description, new LocationId(name));
     }
