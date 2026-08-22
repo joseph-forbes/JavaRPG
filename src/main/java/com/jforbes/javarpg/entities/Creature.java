@@ -76,6 +76,27 @@ public class Creature extends Entity {
         }
     }
 
+    protected boolean becomeEnemy(Engine game) {
+        // Engine needed to render if the creature gains aggression
+        return false;
+    }
+    protected boolean becomeNeutral(Engine game) {
+        // Engine needed to render if the creature gains aggression
+        return true;
+    }
+    @Override
+    protected void updateLogic(Engine game) {
+        if(isEnemy) {
+            game.render("The " + name.toLowerCase() + " took a swing at you.");
+            hit(game.getPlayer(), game);
+        }
+        if(becomeEnemy(game)) {
+            isEnemy = true;
+        }
+        if(becomeNeutral(game)) {
+            isEnemy = false;
+        }
+    }
     @Override
     protected void updateDescription() {
         description = oDescription;

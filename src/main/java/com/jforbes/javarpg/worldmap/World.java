@@ -16,10 +16,10 @@ public class World {
     }
 
     public void update(Engine game) {
-        getCurrentLocation(game.getPlayer()).update(game);;
-        //for(Location location : locations.values()) {
-        //    location.update(game);
-        //}
+        //getCurrentLocation(game.getPlayer()).update(game);;
+        for(Location location : locations.values()) {
+           location.update(game);
+        }
     }
     public void add(LocationId id, Location location) {
         locations.put(id, location);

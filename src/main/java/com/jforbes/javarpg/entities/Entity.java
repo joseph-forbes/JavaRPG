@@ -1,6 +1,7 @@
 package com.jforbes.javarpg.entities;
 
 import com.jforbes.javarpg.gameengine.Engine;
+import com.jforbes.javarpg.util.LocationId;
 
 public class Entity {
 
@@ -11,6 +12,7 @@ public class Entity {
     protected String interactionText;
     protected String oDescription;
     protected String oDetailedDescription;
+    protected LocationId locationId;
 
     public Entity() {
         this("Generic Thing");
@@ -72,5 +74,9 @@ public class Entity {
 
     public String toString() {
         return name;
+    }
+
+    public void setLocation(LocationId id) {
+        locationId = id;
     }
 }

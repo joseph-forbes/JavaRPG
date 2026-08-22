@@ -73,6 +73,7 @@ public class Location {
         return contents;
     }
     public void addEntity(Entity entity) {
+        entity.setLocation(id);
         contents.add(entity);
     }
     public void setDefaultDescription(String text) {
