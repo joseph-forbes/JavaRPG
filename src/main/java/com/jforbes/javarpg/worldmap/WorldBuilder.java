@@ -74,7 +74,36 @@ public class WorldBuilder {
         //village.connect(Direction.NORTH, home.getLocationId());
         home.connect(Direction.SOUTH, village.getLocationId());
 
+        ////// BOHEMIUS MCPHIDDLESTICKS III HOME //////
+        
+        House sheriffHouse = new House(null, null, null);
+        
+        ////// BOHEMIUS MCPHIDDLESTICKS III //////
+        NPC bohemius = new NPC(
+            "Bohemius", 
+            "He goes by \"Bohemius McPhiddlesticks III\" even though his father is named Phil Jenkins. " + 
+            "You've never understood why but as town sheriff you're too scared to question him.", 
+            "You see Bohemius."
+        );
+        bohemius.add(
+            "I say my good chap, have you seen Wilbur around lately?\n" + 
+            "(Wilbur is your city mayor)"
+        );
+        bohemius.add("I only ask because I lent my best blue tunic to him the other day and he doesn't seem to have it.");
+        bohemius.add("Well if you see him, tell him Bohemius McPhiddlesticks III sent for him.");
+        bohemius.add("Ta-ta!");
 
+        village.addEntity(bohemius);
         return village;
     }
+    private static Location buildSheriffHouse() {
+        Location sheriffHouse = new Location("bohemius-home");
+        sheriffHouse.setDefaultDescription(
+            "The home of Bohemius McPhiddlesticks III. " + 
+            "It smells strongly of leather and whisky."
+        );
+
+        return sheriffHouse;
+    }
+
 }
