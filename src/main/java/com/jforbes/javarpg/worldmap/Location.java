@@ -73,6 +73,7 @@ public class Location {
         return contents;
     }
     public void addEntity(Entity entity) {
+        entity.setLocation(id);
         contents.add(entity);
     }
     public void setDefaultDescription(String text) {
@@ -83,6 +84,9 @@ public class Location {
     }
     public void connect(Direction direction, LocationId location) {
         exits.put(direction, location);
+    }
+    public void connect(Direction direction, Location location) {
+        exits.put(direction, location.getLocationId());
     }
 
     public String getValidDirs() {

@@ -15,8 +15,10 @@ public class Creature extends Entity {
         this.ac = ac;
         this.xpOnDeath = xpOnDeath;
         interactionText = "The " + name + " doesn't seem to be much of a talker.";
+        oDescription = "You see a " + name.toLowerCase();
+        oDetailedDescription = "The " + name.toLowerCase() + " looks back at you.";
 
-        setDescription();
+        updateDescription();
     }
     public Creature() {}
 
@@ -74,12 +76,33 @@ public class Creature extends Entity {
         }
     }
 
+    protected boolean becomeEnemy(Engine game) {
+        // Engine needed to render if the creature gains aggression
+        return false;
+    }
+    protected boolean becomeNeutral(Engine game) {
+        // Engine needed to render if the creature gains aggression
+        return true;
+    }
     @Override
-    protected void setDescription() {
-        description = "You see a " + name.toLowerCase() + ". It looks back at you.";
-        detailedDescription = "You look at the " + name.toLowerCase() 
-                            + ". It has " + hp + " hp. " 
-                            + (isEnemy ? "It does not look very friendly. " : "It does not look too upset with you.");
+    protected void updateLogic(Engine game) {
+        if(isEnemy) {
+            game.render("The " + name.toLowerCase() + " took a swing at you.");
+            hit(game.getPlayer(), game);
+        }
+        if(becomeEnemy(game)) {
+            isEnemy = true;
+        }
+        if(becomeNeutral(game)) {
+            isEnemy = false;
+        }
+    }
+    @Override
+    protected void updateDescription() {
+        description = oDescription;
+        detailedDescription = oDetailedDescription
+                            + ". Has " + hp + " hp. " 
+                            + (isEnemy ? "Not very friendly-looking. " : "Doesn't look too upset with you.");
     }
 
     @Override

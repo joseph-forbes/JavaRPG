@@ -5,6 +5,9 @@ import com.jforbes.javarpg.util.LocationId;
 
 public class House extends Entity {
     private final LocationId id;
+    public House(String name, String detailedDescription) {
+        this(name, detailedDescription, "You see " + name + ".");
+    }
     public House(String name, String detailedDescription, String description) {
         this(name, detailedDescription, description, new LocationId(name));
     }
@@ -15,7 +18,7 @@ public class House extends Entity {
     @Override
     public void interact(Engine game) {
         game.getPlayer().setLocation(id);
-        game.render("You enter the " + name.toLowerCase());
+        game.render("You enter " + name.toLowerCase());
         game.executeCommand("look around");
     }
 

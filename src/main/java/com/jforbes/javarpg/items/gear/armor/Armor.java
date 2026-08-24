@@ -10,7 +10,7 @@ public class Armor extends Item {
 
         function = "provides a +" + addedAC + " bonus to your defense.";
 
-        setDescription();
+        updateDescription();
     }
     public Armor() {
         this("", 0);

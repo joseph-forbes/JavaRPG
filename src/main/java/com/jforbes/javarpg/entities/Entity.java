@@ -1,6 +1,7 @@
 package com.jforbes.javarpg.entities;
 
 import com.jforbes.javarpg.gameengine.Engine;
+import com.jforbes.javarpg.util.LocationId;
 
 public class Entity {
 
@@ -9,14 +10,15 @@ public class Entity {
     protected String detailedDescription;
     protected String name = "thing";
     protected String interactionText;
-    private String oDescription;
-    private String oDetailedDescription;
+    protected String oDescription;
+    protected String oDetailedDescription;
+    protected LocationId locationId;
 
     public Entity() {
         this("Generic Thing");
     }
     public Entity(String name) {
-        this(name, "There does not seem to be anything particularly special about the " + name + " and you get the vibe it exists purely as filler content.");
+        this(name, "There does not seem to be anything particularly special about the " + name.toLowerCase() + " and you get the vibe it exists purely as filler content.");
     }
     public Entity(String name, String detailedDescription) {
         this(name, detailedDescription, "You see a " + name.toLowerCase() + ".");
@@ -29,7 +31,7 @@ public class Entity {
         oDescription = this.description = description;
         oDetailedDescription = this.detailedDescription = detailedDescription;
         this.interactionText = interactionText;
-        setDescription();
+        updateDescription();
     }
 
     public String getName() {
@@ -38,7 +40,13 @@ public class Entity {
     public String getDescription() {
         return description;
     }
-    protected void setDescription() {
+    public void setDescription(String newDescription) {
+        oDescription = newDescription;
+    }
+    public void setDetailedDescription(String newDetailedDescription) {
+        oDetailedDescription = newDetailedDescription;
+    }
+    protected void updateDescription() {
         description = oDescription;
         detailedDescription = oDetailedDescription;
     }
@@ -54,7 +62,7 @@ public class Entity {
 
     }
     protected void updateRender() {
-        setDescription();
+        updateDescription();
     }
     public void interact(Engine game) {
         game.render(interactionText);
@@ -65,7 +73,10 @@ public class Entity {
     }
 
     public String toString() {
-        setDescription();
-        return detailedDescription;
+        return name;
+    }
+
+    public void setLocation(LocationId id) {
+        locationId = id;
     }
 }

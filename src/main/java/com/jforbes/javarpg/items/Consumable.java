@@ -37,7 +37,7 @@ public class Consumable extends Item {
 
     }
     @Override
-    protected void setDescription() {
+    protected void updateDescription() {
         description = "You see a" + Formatter.needsAn(name) + name.toLowerCase() + " lying on the ground.";
         detailedDescription = 
             usesRemaining > 1 ? 

@@ -15,7 +15,7 @@ public class Look extends WorldInteractor {
     @Override
     protected void interact(Engine game, Entity entity) {
         // Good behavior
-        game.render(entity.toString());
+        game.render(entity.getDetailedDescription());
     }
     
     @Override
@@ -40,9 +40,12 @@ public class Look extends WorldInteractor {
             game.render(currentLocation.getDescription(game));
             game.render(currentLocation.getValidDirs());
             game.render();
-            if(currentLocation.getContents().size() == 0) {
-                game.render("There's nothing here...");
-            }
+            // Removing the filler text for locations without contents since I'm not sure I want it yet
+            // TODO: decide whether to have filler text for empty locations
+
+            // if(currentLocation.getContents().size() == 0) {
+            //     game.render("There's nothing here...");
+            // }
             for(Entity e : currentLocation.getContents()) {
                 game.render(e.getDescription());
             }
