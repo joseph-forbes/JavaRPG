@@ -14,7 +14,6 @@ import com.jforbes.javarpg.items.gear.tools.Weapon;
 import com.jforbes.javarpg.util.LocationId;
 import com.jforbes.javarpg.util.enums.Die;
 import com.jforbes.javarpg.util.enums.Stats;
-import com.jforbes.javarpg.worldmap.Location;
 
 public class Player extends Creature {
     private LocationId location;
@@ -61,6 +60,9 @@ public class Player extends Creature {
 
     public LocationId getLocation() {
         return location;
+    }
+    public void setLocation(LocationId location) {
+        this.location = location;
     }
     public void setLocation(LocationId location, EventSystem events) {
         LocationId currentLocation = this.location;

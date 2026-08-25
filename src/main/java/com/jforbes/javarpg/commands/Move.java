@@ -47,7 +47,7 @@ public class Move implements Command {
             if(currentLocation.getExit(direction) != null) {
                 // Found location
                 LocationId newLocation = currentLocation.get(direction);
-                player.setLocation(newLocation);
+                player.setLocation(newLocation, game.getEvents());
                 game.render("You move " + direction.toString().toLowerCase());
                 game.executeCommand("look around");
             } else { // Can't move that direction

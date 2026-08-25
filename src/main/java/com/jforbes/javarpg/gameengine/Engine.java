@@ -3,6 +3,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import com.jforbes.javarpg.commands.*;
+import com.jforbes.javarpg.events.EventSystem;
 import com.jforbes.javarpg.gameengine.render.*;
 import com.jforbes.javarpg.player.Player;
 import com.jforbes.javarpg.util.enums.Stats;
@@ -19,6 +20,7 @@ public class Engine {
     private Player player;
     private World world;
     private List<ManReturn> manList = new ArrayList<>();
+    private EventSystem eventSystem;
     public boolean isNSFW;
     private boolean isGameOver;
     private final GameOutput output;
@@ -33,6 +35,7 @@ public class Engine {
         isNSFW = false;
         isGameOver = false;
         this.output = output;
+        eventSystem = new EventSystem();
         registerCommands();
     }
 
@@ -153,5 +156,8 @@ public class Engine {
     public void reset() {
         isGameOver = false;
         player = null;
+    }
+    public EventSystem getEvents() {
+        return eventSystem;
     }
 }

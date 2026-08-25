@@ -254,9 +254,14 @@ public class WorldBuilder {
         home.connect(Direction.SOUTH, neighborhood.getLocationId());        
 
         ////// BOHEMIUS MCPHIDDLESTICKS III HOME //////
-        
-        House sheriffHouse = new House(null, null, null);
-        
+        Location sheriffHouseLocation = buildSheriffHouse();
+        House sheriffHouse = new House(
+            "Bohemius's House", 
+            "The house of Bohemius McPhiddlesticks III. It's as pretentious as he is, inside and out.", 
+            "You see Bohemius's house next to yours.", sheriffHouseLocation.getLocationId());
+        world.add(sheriffHouseLocation);
+        neighborhood.addEntity(sheriffHouse);
+
         ////// BOHEMIUS MCPHIDDLESTICKS III //////
         NPC bohemius = new NPC(
             "Bohemius", 
