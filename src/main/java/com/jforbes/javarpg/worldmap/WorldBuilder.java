@@ -1,10 +1,13 @@
 package com.jforbes.javarpg.worldmap;
 
 import com.jforbes.javarpg.entities.*;
+import com.jforbes.javarpg.events.EventSystem;
+import com.jforbes.javarpg.events.worldevents.EntityKilledEvent;
 import com.jforbes.javarpg.gameengine.Engine;
 import com.jforbes.javarpg.items.Item;
 import com.jforbes.javarpg.items.ammo.*;
 import com.jforbes.javarpg.items.gear.armor.Armor;
+import com.jforbes.javarpg.items.gear.tools.Weapon;
 import com.jforbes.javarpg.player.Player;
 import com.jforbes.javarpg.util.WorldFinder;
 import com.jforbes.javarpg.util.enums.Direction;
@@ -31,6 +34,10 @@ public class WorldBuilder {
 
         home.addEntity(new Corndog());
         home.addEntity(new Entity("Pickle statue"));
+
+        home.addEntity(new Weapon("Deathblade", 1000, 1000));
+        home.addEntity(new Armor("DeathArmor", 1000));
+
         home.addDescription(
             "This place no longer feels like home because some hooligan took all your corndogs.", 
             engine -> WorldFinder.find(home, Corndog.class) == null
@@ -38,7 +45,23 @@ public class WorldBuilder {
 
         return home;
     }
-    private static Location buildSteveHome() {
+    private static void handleTrollDeath(Engine game) {
+        Location neighborhood = game.getMap().get("neighborhood");
+        NPC bum = (NPC) neighborhood.getEntityByName("Steve");
+        bum.removeFromWorld();
+        NPC newBum = new NPC(
+            "Steve", 
+            "Steve is your good friend from high school. " + 
+            "He lives in a hut down the street and is the village's laundry attendand and local kook.", 
+            "You see Steve"
+        );
+        newBum.add("Hey man, have you seen Jeff lately?");
+        newBum.add("I've been meaning to talk to him about the mess he made but I can't seem to find him.");
+
+        neighborhood.addEntity(newBum);
+
+    }
+    private static Location buildSteveHome(EventSystem eventSystem, Engine game) {
         Location steveHome = new Location("steve-hut");
         steveHome.setDefaultDescription(
             "Steve's hut is a small tent. " + 
@@ -48,10 +71,17 @@ public class WorldBuilder {
         
         Enemy troll = new Enemy("Troll", 30, 18, 6, 15, 130);
         steveHome.addEntity(troll);
+
+        eventSystem.register(
+            EntityKilledEvent.class, 
+            event -> event.entity().equals(troll), 
+            event -> handleTrollDeath(game)
+        );
+
         steveHome.addDescription(
             "Steve's hut is a small tent. " + 
             "His new roommate, Jeff, appears to have left a mess on the floor.", 
-            game -> steveHome.getContents().contains(troll)
+            engine -> steveHome.getContents().contains(troll)
         );
         steveHome.addEntity(new Entity(
             "Blood", 
@@ -215,7 +245,7 @@ public class WorldBuilder {
 
         ////////// STEVE'S HOME //////////
         
-        Location steveHut = buildSteveHome();
+        Location steveHut = buildSteveHome(game.getEvents(), game);
         House steveHutEntity = new House(
             "Steve's hut",
 

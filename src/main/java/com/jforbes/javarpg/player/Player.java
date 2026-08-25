@@ -67,8 +67,8 @@ public class Player extends Creature {
     public void setLocation(LocationId location, EventSystem events) {
         LocationId currentLocation = this.location;
         this.location = location;
-        events.publish(new LocationExitedEvent(currentLocation, location), null);
-        events.publish(new LocationEnteredEvent(currentLocation, location), null);
+        events.publish(new LocationExitedEvent(currentLocation, location));
+        events.publish(new LocationEnteredEvent(currentLocation, location));
     }
 
     public Inventory getInventory() {

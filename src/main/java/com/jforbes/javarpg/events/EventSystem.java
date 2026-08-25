@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import com.jforbes.javarpg.events.worldevents.Event;
-import com.jforbes.javarpg.gameengine.Engine;
 
 public class EventSystem {
     private List<EventHandler<? extends Event>> events;
@@ -21,16 +20,15 @@ public class EventSystem {
         events.add(new EventHandler<E>(eventType, condition, action));
     }
 
-    public void publish(Event event, Engine game) {
+    public void publish(Event event) {
         for (EventHandler<? extends Event> handler : events) {
-            processEvent(handler, event, game);
+            processEvent(handler, event);
         }
     }
 
     private <E extends Event> void processEvent(
             EventHandler<E> handler,
-            Event event,
-            Engine game) {
+            Event event) {
 
         if (!handler.eventType().isInstance(event)) {
             // Ensure this event is of the correct type
@@ -40,7 +38,7 @@ public class EventSystem {
         E typedEvent = handler.eventType().cast(event);
 
         if (handler.condition().test(typedEvent)) {
-            handler.action().execute(typedEvent, game);
+            handler.action().execute(typedEvent);
         }
     }
 }

@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 import com.jforbes.javarpg.entities.Entity;
+import com.jforbes.javarpg.events.EventSystem;
+import com.jforbes.javarpg.events.worldevents.EntityKilledEvent;
 import com.jforbes.javarpg.gameengine.Engine;
 import com.jforbes.javarpg.util.DescriptionVariant;
 import com.jforbes.javarpg.util.LocationId;
@@ -37,13 +39,14 @@ public class Location {
         for(Entity entity : contents) {
             entity.update(game);
         }
-        collectGarbage();
+        collectGarbage(game.getEvents());
     }
     
-    private void collectGarbage() {
+    private void collectGarbage(EventSystem eventSystem) {
         for(int i=contents.size()- 1; i>= 0; i--) {
             Entity entity = contents.get(i);
             if(entity.isDead()) {
+                eventSystem.publish(new EntityKilledEvent(entity));
                 contents.remove(i);
             }
         }
@@ -87,6 +90,14 @@ public class Location {
     }
     public void connect(Direction direction, Location location) {
         exits.put(direction, location.getLocationId());
+    }
+    public Entity getEntityByName(String name) {
+        for(Entity entity : contents) {
+            if(entity.getName().equals(name)) {
+                return entity;
+            }
+        }
+        return null;
     }
 
     public String getValidDirs() {

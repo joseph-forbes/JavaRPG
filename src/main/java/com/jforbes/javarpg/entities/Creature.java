@@ -6,7 +6,6 @@ import com.jforbes.javarpg.util.enums.Stats;
 
 public class Creature extends Entity {
     protected int hp, MAX_HP, damage, damageBonus, ac, xpOnDeath;
-    //final int MAX_HP;
     public Creature(String name, int hp, int damage, int damageBonus, int ac, int xpOnDeath) {
         this.name = name;
         this.hp = hp;
@@ -86,7 +85,7 @@ public class Creature extends Entity {
     }
     @Override
     protected void updateLogic(Engine game) {
-        if(isEnemy) {
+        if(isEnemy && !isDead()) {
             game.render("The " + name.toLowerCase() + " took a swing at you.");
             hit(game.getPlayer(), game);
         }
@@ -107,6 +106,10 @@ public class Creature extends Entity {
 
     @Override
     public boolean isDead() {
-        return hp <= 0;
+        if(hp <= 0) {
+            removeFromWorld();
+            return true;
+        }
+        return false;
     }
 }

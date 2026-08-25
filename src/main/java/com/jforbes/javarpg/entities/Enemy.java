@@ -11,7 +11,8 @@ public class Enemy extends Creature {
     @Override
     protected boolean becomeEnemy(Engine game) {
         if(game.getPlayer().getLocation() == locationId) {
-            game.render("The " + name.toLowerCase() + " notices you and squares up.");
+            if(!isEnemy)
+                game.render("The " + name.toLowerCase() + " notices you and squares up.");
             return true;
         }
         return false;

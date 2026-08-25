@@ -13,6 +13,7 @@ public class Entity {
     protected String oDescription;
     protected String oDetailedDescription;
     protected LocationId locationId;
+    private boolean isDead;
 
     public Entity() {
         this("Generic Thing");
@@ -31,6 +32,7 @@ public class Entity {
         oDescription = this.description = description;
         oDetailedDescription = this.detailedDescription = detailedDescription;
         this.interactionText = interactionText;
+        isDead = false;
         updateDescription();
     }
 
@@ -69,7 +71,10 @@ public class Entity {
     }
 
     public boolean isDead() {
-        return false;
+        return isDead;
+    }
+    public void removeFromWorld() {
+        isDead = true;
     }
 
     public String toString() {
