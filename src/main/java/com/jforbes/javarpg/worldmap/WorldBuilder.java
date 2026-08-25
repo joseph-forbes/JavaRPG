@@ -3,6 +3,7 @@ package com.jforbes.javarpg.worldmap;
 import com.jforbes.javarpg.entities.*;
 import com.jforbes.javarpg.events.EventSystem;
 import com.jforbes.javarpg.events.worldevents.EntityKilledEvent;
+import com.jforbes.javarpg.events.worldevents.LocationExitedEvent;
 import com.jforbes.javarpg.gameengine.Engine;
 import com.jforbes.javarpg.items.Item;
 import com.jforbes.javarpg.items.ammo.*;
@@ -45,28 +46,33 @@ public class WorldBuilder {
 
         return home;
     }
-    private static void handleTrollDeath(Engine game) {
+    private static void processTrollDeath(Engine game) {
         Location neighborhood = game.getMap().get("neighborhood");
         NPC bum = (NPC) neighborhood.getEntityByName("Steve");
-        bum.removeFromWorld();
-        NPC newBum = new NPC(
-            "Steve", 
-            "Steve is your good friend from high school. " + 
-            "He lives in a hut down the street and is the village's laundry attendand and local kook.", 
-            "You see Steve"
-        );
-        newBum.add("Hey man, have you seen Jeff lately?");
-        newBum.add("I've been meaning to talk to him about the mess he made but I can't seem to find him.");
+        bum.resetTextTree();
+        bum.add("Hey man, have you seen Jeff lately?");
+        bum.add("I've been meaning to thank him for cleaning that mess in my house but I can't seem to find him.");
 
-        neighborhood.addEntity(newBum);
+        NPC bohemius = (NPC) neighborhood.getEntityByName("Bohemius");
+        bohemius.resetTextTree();
+        bohemius.add("I say old chap, that Jeff fellow certainly made an excellent trophy, what-what.");
+        bohemius.add("A shame he died... I suppose this village is not for the faint of heart.");
+    }
+    private static void cleanHut(Location steveHut) {
+        steveHut.getContents().remove(steveHut.getEntityByName("Blood"));
+        steveHut.getContents().remove(steveHut.getEntityByName("Skull"));
 
+        steveHut.addEntity(new Entity(
+            "Troll Head",
+            "The head looks oddly familiar...",
+            "You see a stuffed troll head hanging from the wall."
+        ));
     }
     private static Location buildSteveHome(EventSystem eventSystem, Engine game) {
         Location steveHome = new Location("steve-hut");
         steveHome.setDefaultDescription(
             "Steve's hut is a small tent. " + 
-            "He has a cozy hay bed, a stuffy clothes line just outside, " + 
-            "and a stuffed troll head hanging on his wall."
+            "You have fond memories of this place."
         );
         
         Enemy troll = new Enemy("Troll", 30, 18, 6, 15, 130);
@@ -75,7 +81,13 @@ public class WorldBuilder {
         eventSystem.register(
             EntityKilledEvent.class, 
             event -> event.entity().equals(troll), 
-            event -> handleTrollDeath(game)
+            event -> processTrollDeath(game)
+        );
+        // Clean the house after the player leaves when the troll dies
+        eventSystem.register(
+            LocationExitedEvent.class, 
+            event -> event.previousLocation().equals(steveHome.getLocationId()) && !steveHome.getContents().contains(troll), 
+            event -> cleanHut(steveHome)
         );
 
         steveHome.addDescription(
@@ -92,10 +104,29 @@ public class WorldBuilder {
         Item skull = new Armor("Skull", 1);
         skull.setDetailedDescription("The skull appears to be from a human. It is on top of a pile of torn up bones and the tattered remains of a blue leather tunic.");
         steveHome.addEntity(skull);
+        steveHome.addEntity(new Entity(
+            "Bed", 
+            "This is the bed Steve seeps on. " + 
+            "From time to time, you've slept on it too.", 
+            "Steve's bed is in the corner of the room.",
+            "You take a quick power nap and feel very refreshed. " +
+            "However, nothing appears to have changed in the outside world. " + 
+            "Perhaps your nap was shorter than you thought."
+        )
+        );
 
         return steveHome;
     }
-    
+    private static Location buildSheriffHouse() {
+        Location sheriffHouse = new Location("bohemius-home");
+        sheriffHouse.setDefaultDescription(
+            "The home of Bohemius McPhiddlesticks III. " + 
+            "It smells strongly of leather and whisky."
+        );
+
+        return sheriffHouse;
+    }
+
     private static Location buildCityHall(World world) {
         Location cityHall = new Location("city-hall-entrance");
         cityHall.setDefaultDescription(
@@ -112,8 +143,8 @@ public class WorldBuilder {
         eastWing.addEntity(new Entity(
             "Tables", 
             "Each table is covered in a fresh tablecloth.", 
-            "You see many tables around the room.")
-        );
+            "You see many tables around the room."
+        ));
         eastWing.addEntity(new Entity("Sink", 
             "The sink is well maintained. " + 
             "Fresh dishes from last week's potluck are drying off to the side.", 
@@ -309,15 +340,6 @@ public class WorldBuilder {
 
         neighborhood.addEntity(bohemius);
         return neighborhood;
-    }
-    private static Location buildSheriffHouse() {
-        Location sheriffHouse = new Location("bohemius-home");
-        sheriffHouse.setDefaultDescription(
-            "The home of Bohemius McPhiddlesticks III. " + 
-            "It smells strongly of leather and whisky."
-        );
-
-        return sheriffHouse;
     }
 
 

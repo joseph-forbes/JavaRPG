@@ -22,6 +22,9 @@ public class NPC extends Entity {
     public void add(String text) {
         interactionTexts.add(text);
     }
+    public void resetTextTree() {
+        interactionTexts = new ArrayList<String>();
+    }
     private String getNextString() {
         textIndex++;
         if(textIndex <= interactionTexts.size()) { // <= because index needs to be incremented before returning the previous index value
