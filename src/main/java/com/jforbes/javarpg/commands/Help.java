@@ -17,9 +17,9 @@ public class Help implements Command {
 
             game.render(
                 nameStr + 
-                ": " + man.man +
-                "\n------------------------"
+                ": " + man.man
             );
+            game.render("------------------------");
         }
 
     }

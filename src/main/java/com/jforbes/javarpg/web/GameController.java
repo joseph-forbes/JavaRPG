@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jforbes.javarpg.gameengine.Engine;
 import com.jforbes.javarpg.gameengine.render.CollectionOutput;
+import com.jforbes.javarpg.util.Formatter;
 
 @RestController
 @RequestMapping("/api/game")
@@ -25,7 +26,11 @@ public class GameController {
     public TurnResult getGame() {
         return new TurnResult(
             output.getMessages(),
-            new GameState(game.isInitialized(), game.isGameOver())
+            new GameState(
+                game.isInitialized(), 
+                game.isGameOver(),
+                game.isInitialized() ? Formatter.format(game.getCurrentLocation().getContents()) :  new String[0]
+            )
         );
     }
 
@@ -36,7 +41,7 @@ public class GameController {
 
         return new TurnResult(
             output.getMessages(),
-            new GameState(false, false)
+            new GameState(false, false, new String[0])
         );
     }
 
@@ -49,7 +54,7 @@ public class GameController {
 
         return new TurnResult(
             output.getMessages(), 
-            new GameState(true, false)
+            new GameState(true, false, Formatter.format(game.getCurrentLocation().getContents()))
         );
     }
 
@@ -63,7 +68,7 @@ public class GameController {
 
         return new TurnResult(
             output.getMessages(),
-            new GameState(game.isInitialized(), game.isGameOver())
+            new GameState(game.isInitialized(), game.isGameOver(), Formatter.format(game.getCurrentLocation().getContents()))
         );
     }
 }
