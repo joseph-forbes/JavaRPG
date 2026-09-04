@@ -92,7 +92,10 @@ async function gameStep(gameState) {
     // Add possible word options to JS
     words = gameState.state.entityNames;
     for(i in gameState.messages) {
-        body.innerHTML += gameState.messages[i] + "<br>";
+        body.innerHTML += "<div>" + gameState.messages[i] + "</div>";
+    }
+    while(body.childElementCount > 500) {
+        body.firstElementChild.remove();
     }
     if(!gameState.state.isGameOver) {
         createInput();
