@@ -1,10 +1,9 @@
 package com.jforbes.javarpg.entities;
 
-import com.jforbes.javarpg.gameengine.Engine;
+import com.jforbes.javarpg.entities.interactionbehavior.HouseInteract;
 import com.jforbes.javarpg.util.LocationId;
 
 public class House extends Entity {
-    private final LocationId id;
     public House(String name, String detailedDescription) {
         this(name, detailedDescription, "You see " + name + ".");
     }
@@ -13,13 +12,7 @@ public class House extends Entity {
     }
     public House(String name, String detailedDescription, String description, LocationId id) {
         super(name, detailedDescription, description);
-        this.id = id;
-    }
-    @Override
-    public void interact(Engine game) {
-        game.getPlayer().setLocation(id, game.getEvents());
-        game.render("You enter " + name.toLowerCase());
-        game.executeCommand("look around");
+        interactionBehavior = new HouseInteract(name, id);
     }
 
 }

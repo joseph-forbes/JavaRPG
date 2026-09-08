@@ -25,15 +25,7 @@ public class Player extends Creature {
     private int xp;
 
     public Player(String name) {
-        this.name = name;
-        lvl = 1;
-        xpToNextLvl = 10000;
-        xp = 0;
-        hp = 10; 
-        MAX_HP = hp;
-        ac = 10;
-        damage = 1;
-        damageBonus = 0;
+        super(name, 10, 1, 0, 10, 0);
         equipment = new Equipment(new DefaultArmor(), new DefaultWeapon());
     }
         
@@ -147,7 +139,7 @@ public class Player extends Creature {
         } else {
             game.render("A critical failure :(");
             hp -= damage;
-            game.render("You hit yourself for " + damage + "damage. You have " + hp + " hp remaining.");
+            game.render("You hit yourself for " + damage + " damage. You have " + hp + " hp remaining.");
         }
         }
 }

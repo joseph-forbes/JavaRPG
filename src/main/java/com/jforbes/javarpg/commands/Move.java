@@ -43,7 +43,7 @@ public class Move implements Command {
             }
             player = game.getPlayer();
 
-            Location currentLocation = game.getMap().getCurrentLocation(player);
+            Location currentLocation = game.getWorld().getCurrentLocation(player);
             if(currentLocation.getExit(direction) != null) {
                 // Found location
                 LocationId newLocation = currentLocation.get(direction);

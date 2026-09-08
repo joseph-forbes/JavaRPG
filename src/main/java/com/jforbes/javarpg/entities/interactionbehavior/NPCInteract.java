@@ -1,0 +1,40 @@
+package com.jforbes.javarpg.entities.interactionbehavior;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.jforbes.javarpg.gameengine.Engine;
+
+public class NPCInteract implements InteractionBehavior {
+    private List<String> interactionTexts;
+    private int textIndex;
+
+    public NPCInteract() {
+        interactionTexts = new ArrayList<String>();
+        textIndex = 0;
+    }
+
+    public void add(String text) {
+        interactionTexts.add(text);
+    }
+
+    public void resetTextTree() {
+        interactionTexts = new ArrayList<String>();
+    }
+    
+    @Override
+    public void interact(Engine game) {
+        game.render(getNextString());
+    }
+
+
+    private String getNextString() {
+        textIndex++;
+        if(textIndex <= interactionTexts.size()) { // <= because index needs to be incremented before returning the previous index value
+            return interactionTexts.get(textIndex - 1);
+        } else {
+            textIndex = 1; // Start off with the second index since the first is called right here
+            return interactionTexts.get(0);
+        }
+    }
+}

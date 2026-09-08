@@ -6,20 +6,23 @@ import com.jforbes.javarpg.util.enums.Stats;
 
 public class Creature extends Entity {
     protected int hp, MAX_HP, damage, damageBonus, ac, xpOnDeath;
+    protected boolean isEnemy;
     public Creature(String name, int hp, int damage, int damageBonus, int ac, int xpOnDeath) {
-        this.name = name;
+        super(
+            name, 
+            "The " + name.toLowerCase() + " looks back at you.", 
+            "You see a " + name.toLowerCase(), 
+            "The " + name + " doesn't seem to be much of a talker."
+        );
         this.hp = hp;
         this.damage = damage;
         this.damageBonus = damageBonus;
         this.ac = ac;
         this.xpOnDeath = xpOnDeath;
-        interactionText = "The " + name + " doesn't seem to be much of a talker.";
-        oDescription = "You see a " + name.toLowerCase();
-        oDetailedDescription = "The " + name.toLowerCase() + " looks back at you.";
+        isEnemy = false;
 
         updateDescription();
     }
-    public Creature() {}
 
     public void hit(Creature creature, Engine game) {
         // roll d20
@@ -80,11 +83,15 @@ public class Creature extends Entity {
         return false;
     }
     protected boolean becomeNeutral(Engine game) {
-        // Engine needed to render if the creature gains aggression
-        return true;
+        // There may be some creatures which don't de-aggro on player leave, 
+        // but by default they do for texting purposes
+        return game.getPlayer().getLocation() != locationId;
     }
     @Override
     protected void updateLogic(Engine game) {
+        if(becomeNeutral(game)) {
+            isEnemy = false;
+        }
         if(isEnemy && !isDead()) {
             game.render("The " + name.toLowerCase() + " took a swing at you.");
             hit(game.getPlayer(), game);
@@ -92,15 +99,12 @@ public class Creature extends Entity {
         if(becomeEnemy(game)) {
             isEnemy = true;
         }
-        if(becomeNeutral(game)) {
-            isEnemy = false;
-        }
     }
     @Override
     protected void updateDescription() {
         description = oDescription;
         detailedDescription = oDetailedDescription
-                            + ". Has " + hp + " hp. " 
+                            + " Has " + hp + " hp. " 
                             + (isEnemy ? "Not very friendly-looking. " : "Doesn't look too upset with you.");
     }
 

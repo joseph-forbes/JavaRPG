@@ -123,7 +123,7 @@ public class Engine {
         }
     }
     
-    public World getMap() {
+    public World getWorld() {
         return world;
     }
     public Player getPlayer() {

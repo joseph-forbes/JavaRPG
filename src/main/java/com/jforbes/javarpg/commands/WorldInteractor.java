@@ -7,7 +7,7 @@ import com.jforbes.javarpg.util.commandutil.EntityFinder;
 import com.jforbes.javarpg.util.returnsutil.EntityFindReturn;
 import com.jforbes.javarpg.worldmap.Location;
 
-public class WorldInteractor implements Command {
+public abstract class WorldInteractor implements Command {
     protected String man;
     protected EntityFinder finder;
     protected String commandName;

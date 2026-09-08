@@ -1,18 +1,21 @@
 package com.jforbes.javarpg.entities;
 
+import com.jforbes.javarpg.entities.interactionbehavior.InteractionBehavior;
+import com.jforbes.javarpg.entities.interactionbehavior.RenderInteract;
 import com.jforbes.javarpg.gameengine.Engine;
 import com.jforbes.javarpg.util.LocationId;
 
 public class Entity {
 
-    protected boolean isEnemy = false;
     protected String description;
     protected String detailedDescription;
-    protected String name = "thing";
+    protected String name;
+    protected String id;
     protected String interactionText;
     protected String oDescription;
     protected String oDetailedDescription;
     protected LocationId locationId;
+    protected InteractionBehavior interactionBehavior;
     private boolean isDead;
 
     public Entity() {
@@ -28,10 +31,18 @@ public class Entity {
         this(name, detailedDescription, description, "It doesn't do anything.");
     }
     public Entity(String name, String detailedDescription, String description, String interactionText) {
-        this.name = name;
+        this(name, detailedDescription, description, new RenderInteract(interactionText));
+    }
+    public Entity(
+        String name, 
+        String detailedDescription, 
+        String description, 
+        InteractionBehavior behavior
+    ) {
+        this.name = this.id = name;
         oDescription = this.description = description;
         oDetailedDescription = this.detailedDescription = detailedDescription;
-        this.interactionText = interactionText;
+        interactionBehavior = behavior;
         isDead = false;
         updateDescription();
     }
@@ -48,6 +59,7 @@ public class Entity {
     public void setDetailedDescription(String newDetailedDescription) {
         oDetailedDescription = newDetailedDescription;
     }
+    // Reset description on world update
     protected void updateDescription() {
         description = oDescription;
         detailedDescription = oDetailedDescription;
@@ -67,7 +79,7 @@ public class Entity {
         updateDescription();
     }
     public void interact(Engine game) {
-        game.render(interactionText);
+        interactionBehavior.interact(game);
     }
 
     public boolean isDead() {
@@ -83,5 +95,12 @@ public class Entity {
 
     public void setLocation(LocationId id) {
         locationId = id;
+    }
+
+    public void overrideId(String newId) {
+        id = newId;
+    }
+    public String getId() {
+        return id;
     }
 }

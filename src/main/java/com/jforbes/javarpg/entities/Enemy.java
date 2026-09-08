@@ -17,11 +17,5 @@ public class Enemy extends Creature {
         }
         return false;
     }
-    @Override
-    protected boolean becomeNeutral(Engine game) {
-        // There may be some creatures which don't de-aggro on player leave, 
-        // but by default they do for texting purposes
-        return game.getPlayer().getLocation() != locationId;
-    }
 
 }

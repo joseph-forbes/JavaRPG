@@ -99,6 +99,14 @@ public class Location {
         }
         return null;
     }
+    public Entity getEntityById(String id) {
+        for(Entity entity : contents) {
+            if(entity.getId().equals(id)) {
+                return entity;
+            }
+        }
+        return null;
+    }
 
     public String getValidDirs() {
         if(exits.keySet().size() > 0) {
