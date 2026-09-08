@@ -47,7 +47,7 @@ public class WorldBuilder {
         return home;
     }
     private static void processTrollDeath(Engine game) {
-        Location neighborhood = game.getMap().get("neighborhood");
+        Location neighborhood = game.getWorld().get("neighborhood");
         NPC bum = (NPC) neighborhood.getEntityByName("Steve");
         bum.resetTextTree();
         bum.add("Hey man, have you seen Jeff lately?");
@@ -57,6 +57,8 @@ public class WorldBuilder {
         bohemius.resetTextTree();
         bohemius.add("I say old chap, that Jeff fellow certainly made an excellent trophy, what-what.");
         bohemius.add("A shame he died... I suppose this village is not for the faint of heart.");
+        bohemius.add("Anyhow, since he's gone I took the liberty to clean up Steve's place for him.");
+        bohemius.add("Ta-ta!");
     }
     private static void cleanHut(Location steveHut) {
         steveHut.getContents().remove(steveHut.getEntityByName("Blood"));
@@ -117,12 +119,47 @@ public class WorldBuilder {
 
         return steveHome;
     }
-    private static Location buildSheriffHouse() {
+    private static Location buildSheriffHouse(Engine game, World world) {
         Location sheriffHouse = new Location("bohemius-home");
         sheriffHouse.setDefaultDescription(
-            "The home of Bohemius McPhiddlesticks III. " + 
-            "It smells strongly of leather and whisky."
+            "The home of Bohemius, town sheriff. " + 
+            "It smells strongly of leather and whisky, " +
+            "and all the furniture has the engraving \"Bohemius McPhiddlesticks III\" on it."
         );
+
+        Location closet = new Location("bohemius-closet");
+        closet.setDefaultDescription("You're unsure why you came in here.");
+
+        sheriffHouse.addEntity(new House(
+            "Closet",
+
+            "The closet is full of an assortment of clothes, guns, and clothes which double as guns. " + 
+            "With this wardrobe Bohemius has won the town fashion show 6 years consecutively.\n" + 
+
+            "Interestingly, everyone else who has participated in the show went missing " + 
+            "24 hours before voting was to take place.",
+            
+            "You see Bohemius's closet to your right.",
+            closet.getLocationId()
+        ));
+
+        Armor trousers = new Armor("Trousers", 1);
+        trousers.setDetailedDescription("Bohemius's prize winning trousers. They fit you perfectly");
+        trousers.setDescription("You see trousers haning in front of you");
+        trousers.overrideId("bohemius-trousers");
+        game.getEvents().register(
+            EntityKilledEvent.class,
+            event -> event.entity().equals(trousers),
+            event -> closet.addEntity(new Entity(
+                "Coat", 
+                "Bohemius would have you hanged even for looking at this.", 
+                "You see a coat hanging in front of you"
+            ))
+        );
+        closet.addEntity(trousers);
+
+        world.add(closet);
+        closet.connect(Direction.WEST, sheriffHouse);
 
         return sheriffHouse;
     }
@@ -182,6 +219,12 @@ public class WorldBuilder {
             "You see a chair off to the side of the room.", 
             "You roll around on the chair. Whee!"
         ));
+        northWing.addEntity(new Entity(
+            "Dust",
+            "There are thin streaks across the floor where the chair appears to have rolled over it. " + 
+            "Perhaps this is how Wilbur thinks sweeping works.",
+            "Everything from floor to ceiling is covered in a thin layer of dust."
+        ));
         World.connect(cityHall, northWing, Direction.NORTH);
         world.add(northWing);
 
@@ -232,6 +275,9 @@ public class WorldBuilder {
         townSquare.setDefaultDescription("A bustling village full of all your friends and family.");
         world.add(townSquare); // Add to world early because cityHall connects to it during instantiation
 
+
+        ////////// CITY HALL //////////
+
         Location cityHall = buildCityHall(world);
         House cityHallEntity = new House(
             "City Hall", 
@@ -246,6 +292,15 @@ public class WorldBuilder {
         townSquare.addEntity(cityHallEntity);
         cityHall.connect(Direction.SOUTH, townSquare);
         world.add(cityHall);
+
+
+        ////////// FOUNTAIN //////////
+        Entity fountain = new Entity(
+            "Fountain",
+            "The fountain serves as a grand centerpoint of the town square. " + 
+            "It doubles as a koi pond and is maintained by Dale, the town janitor."
+        );
+        townSquare.addEntity(fountain);
 
         return townSquare;
     }
@@ -269,7 +324,7 @@ public class WorldBuilder {
         bum.add("Geeze man, what's your deal? Talk to me, g*sh diggity!");
         bum.add("It's like you're a player in a video game with no ability to " + 
         "communicate beyond a fairly restrictive set of commands or somethin'.");
-        bum.add("Fine. If you're gonna stare at me like a vide game character, I'll just restart my talking tree like an NPC! " + 
+        bum.add("Fine. If you're gonna stare at me like a video game character, I'll just restart my talking tree like an NPC! " + 
         "Let's see how you like it.");
 
         neighborhood.addEntity(bum);
@@ -315,21 +370,17 @@ public class WorldBuilder {
         home.connect(Direction.SOUTH, neighborhood.getLocationId());        
 
         ////// BOHEMIUS MCPHIDDLESTICKS III HOME //////
-        Location sheriffHouseLocation = buildSheriffHouse();
+        Location sheriffHouseLocation = buildSheriffHouse(game, world);
         House sheriffHouse = new House(
             "Bohemius's House", 
             "The house of Bohemius McPhiddlesticks III. It's as pretentious as he is, inside and out.", 
             "You see Bohemius's house next to yours.", sheriffHouseLocation.getLocationId());
         world.add(sheriffHouseLocation);
+        sheriffHouseLocation.connect(Direction.SOUTH, neighborhood);
         neighborhood.addEntity(sheriffHouse);
 
         ////// BOHEMIUS MCPHIDDLESTICKS III //////
-        NPC bohemius = new NPC(
-            "Bohemius", 
-            "He goes by \"Bohemius McPhiddlesticks III\" even though his father is named Phil Jenkins. " + 
-            "You've never understood why but as town sheriff you're too scared to question him.", 
-            "You see Bohemius."
-        );
+        Bohemius bohemius = new Bohemius();
         bohemius.add(
             "I say my good chap, have you seen Wilbur around lately?\n" + 
             "(Wilbur is your city mayor)"
