@@ -51,9 +51,17 @@ public class WorldBuilder {
         NPC bum = (NPC) neighborhood.getEntityByName("Steve");
         bum.resetTextTree();
         bum.add("Hey man, have you seen Jeff lately?");
-        bum.add("I've been meaning to thank him for cleaning that mess in my house but I can't seem to find him.");
+        bum.add(
+            "I've been meaning to thank him for cleaning that mess in my house " + 
+            " but I can't seem to find him."
+        );
+        bum.add("Well, if you see him, tell him Steve said thanks!");
+        bum.add(
+            "Anyhow Imma go back to looping my text tree " + 
+            " until you stop acting like the main character of a text RPG."
+        );
 
-        NPC bohemius = (NPC) neighborhood.getEntityByName("Bohemius");
+        Bohemius bohemius = (Bohemius) neighborhood.getEntityByName("Bohemius");
         bohemius.resetTextTree();
         bohemius.add("I say old chap, that Jeff fellow certainly made an excellent trophy, what-what.");
         bohemius.add("A shame he died... I suppose this village is not for the faint of heart.");
@@ -100,7 +108,7 @@ public class WorldBuilder {
         steveHome.addEntity(new Entity(
             "Blood", 
             "The blood appears to be fresh. " + 
-            "Upon close inspection it also appears to be on the troll's claws and teeth", 
+            "Upon close inspection it also appears to be on the troll's club and teeth", 
             "You see blood spattered on the walls")
         );
         Item skull = new Armor("Skull", 1);
