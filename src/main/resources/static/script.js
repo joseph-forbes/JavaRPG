@@ -104,8 +104,7 @@ function inputEntered() {
     input.removeEventListener("keydown", sendMessageKeyEvent);
     document.getElementById("inputDiv").remove();
 }
-
-async function gameStep(gameState) {
+function updateTerminal(gameState) {
     // Add possible word options to JS
     if(gameState.state) {
         worldEntityNames = gameState.state.entityNames;
@@ -118,6 +117,9 @@ async function gameStep(gameState) {
     while(body.childElementCount > 500) {
         body.firstElementChild.remove();
     }
+}
+async function gameStep(gameState) {
+    updateTerminal(gameState);
     if(!gameState.state.isGameOver) {
         createInput();
         input.addEventListener("keydown", sendMessageKeyEvent);
