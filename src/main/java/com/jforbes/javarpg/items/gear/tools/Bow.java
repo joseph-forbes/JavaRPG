@@ -1,5 +1,6 @@
 package com.jforbes.javarpg.items.gear.tools;
 
+import com.jforbes.javarpg.gameengine.Engine;
 import com.jforbes.javarpg.items.Ammo;
 import com.jforbes.javarpg.items.ammo.Arrow;
 import com.jforbes.javarpg.player.Player;
@@ -27,19 +28,16 @@ public class Bow extends Weapon {
     public Class<? extends Ammo> getAmmoType() {
         return ammoType;
     }
-    public int attack(Player player) {
+    public int attack(Player player, Engine game) {
         Ammo ammo = (Ammo) InventoryFinder.find(player.getInventory(), ammoType);
 
         if (ammo == null) {
-            System.out.println("You don't have any " + ammoType.getSimpleName().toLowerCase() + "s.");
+            game.render("You don't have any " + ammoType.getSimpleName().toLowerCase() + "s.");
             return 0;
         } else {
             // Use the ammo
             ammo.shoot();
             return damage + ammo.getDamage();
         }
-
-        // Perform attack...
-        //System.out.println("Fired " + ammoType.getSimpleName());
     }
 }

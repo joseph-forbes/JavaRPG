@@ -2,6 +2,7 @@ package com.jforbes.javarpg.commands;
 
 import com.jforbes.javarpg.gameengine.Engine;
 import com.jforbes.javarpg.player.Player;
+import com.jforbes.javarpg.util.Formatter;
 import com.jforbes.javarpg.util.LocationId;
 import com.jforbes.javarpg.util.enums.Direction;
 import com.jforbes.javarpg.worldmap.Location;
@@ -52,7 +53,7 @@ public class Move implements Command {
                 game.executeCommand("look around");
             } else { // Can't move that direction
                 game.render("You attempt to move " + direction.toString().toLowerCase() + " but cannot.");
-                game.render(currentLocation.getValidDirs());
+                game.render(Formatter.formatDirections(currentLocation.getValidDirs()));
             }
         } else {
             game.render("Please provide a direction (north, south, east, or west).");

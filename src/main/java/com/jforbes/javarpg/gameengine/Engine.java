@@ -46,12 +46,12 @@ public class Engine {
         registerCommand("inventory", new SeeInventory());
         registerCommand("look", new Look());
         registerCommand("move", new Move());
+        registerCommand("nsfw", new WhyAreYouLikeThis());
         registerCommand("pickup", new Pickup());
         registerCommand("use", new Use());
         registerCommand("interact", new Interact());
         registerCommand("equip", new Equip());
         registerCommand("unequip", new Unequip());
-        registerCommand("nsfw", new WhyAreYouLikeThis());
         registerCommand("stats", new Statsheet());
     }
     private void registerCommand(String string, Command command) {

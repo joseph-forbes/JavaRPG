@@ -108,17 +108,14 @@ public class Location {
         return null;
     }
 
-    public String getValidDirs() {
-        if(exits.keySet().size() > 0) {
-            String validDirs = "";
-            for(Direction dir : exits.keySet()) {
-                validDirs += dir.toString().toLowerCase();
-                validDirs += ", ";
-            }
-            if(validDirs.length() > 0) validDirs = validDirs.substring(0, validDirs.length() - 2); // remove final comma
-            return "You can currently move: " + validDirs + ".";
-        } else {
-            return "You look all around but you can't seem to move in any direction";
+    public String[] getValidDirs() {
+        String[] validDirs = new String[exits.keySet().size()];
+        int i = 0;
+        for(Direction key : exits.keySet()) {
+            validDirs[i] = key.toString().toLowerCase();
+            i++;
         }
+
+        return validDirs;
     }
 }

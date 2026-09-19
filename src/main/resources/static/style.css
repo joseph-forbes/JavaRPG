@@ -20,3 +20,14 @@ body {
     font-size: 24px;
     color: aliceblue;
 }
+#wordList {
+    width: 312px;
+    height: flex;
+    min-height: 0px;
+    max-height: 100px;
+    overflow-y: scroll;
+    background-color: hsl(180, 25%, 12%);
+}
+.selected {
+    background-color: hsl(180, 25%, 25%);
+}

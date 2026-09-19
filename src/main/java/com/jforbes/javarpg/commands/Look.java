@@ -38,7 +38,7 @@ public class Look extends WorldInteractor {
             // "look around"
             Location currentLocation = game.getCurrentLocation();
             game.render(currentLocation.getDescription(game));
-            game.render(currentLocation.getValidDirs());
+            game.render(Formatter.formatDirections(currentLocation.getValidDirs()));
             game.render();
             for(Entity e : currentLocation.getContents()) {
                 game.render(e.getDescription());
