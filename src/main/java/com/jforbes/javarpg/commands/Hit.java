@@ -19,7 +19,7 @@ public class Hit extends WorldInteractor {
     @Override
     protected void interact(Engine game, Entity entity) {
         player = game.getPlayer();
-        if(entity instanceof Creature) {
+        if(entity instanceof Creature && ((Creature) entity).canHit()) {
             // Combat
 
             Creature enemy = (Creature) entity;

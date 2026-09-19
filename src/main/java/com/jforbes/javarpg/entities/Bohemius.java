@@ -43,7 +43,11 @@ public class Bohemius extends Creature {
         isEnemy = becomeEnemy(game);
         // Stop becoming an enemy, usually only on the condidtion that the player leaves the map location
     }
-
+    @Override
+    public boolean canHit() {
+        // Bohemius can't be hit when not angry at you
+        return isEnemy;
+    }
 
     @Override
     public void interact(Engine game) {

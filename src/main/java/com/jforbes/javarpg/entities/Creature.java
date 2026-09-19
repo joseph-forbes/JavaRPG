@@ -100,6 +100,9 @@ public class Creature extends Entity {
             isEnemy = true;
         }
     }
+    public boolean canHit() {
+        return true;
+    }
     @Override
     protected void updateDescription() {
         description = oDescription;

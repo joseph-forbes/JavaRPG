@@ -4,7 +4,10 @@ import com.jforbes.javarpg.entities.interactionbehavior.NPCInteract;
 
 public class NPC extends Entity {
     public NPC(String name, String detailedDescription, String description) {
-        super(name, detailedDescription, description, new NPCInteract());
+        super(name);
+        interactionBehavior = new NPCInteract();
+        setDescription(description);
+        setDetailedDescription(detailedDescription);
     }
 
     public void add(String text) {
